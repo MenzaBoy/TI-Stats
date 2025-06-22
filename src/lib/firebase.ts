@@ -8,7 +8,7 @@ import { getDatabase } from 'firebase/database';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC8DVkhgW9fGALQTXrcIsTGgr4qQZA4FI4",
+  // apiKey: "AIzaSyC8DVkhgW9fGALQTXrcIsTGgr4qQZA4FI4",
   authDomain: "ti-stats-c491d.firebaseapp.com",
   databaseURL: "https://ti-stats-c491d-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "ti-stats-c491d",
