@@ -1,13 +1,14 @@
-import { Suspense, useRef, useEffect } from 'react';
+import React, { Suspense, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { Typography, Box } from '@mui/material';
 
 import * as THREE from 'three';
+import { getBaseUrl } from '../utils';
 
 function TrophyModelGLB() {
-    const { scene } = useGLTF('/models/ti-trophy.glb');
+    const { scene } = useGLTF(getBaseUrl() + '/models/ti-trophy.glb');
     const ref = useRef<THREE.Group>(null);
     const hasTilted = useRef(false);
 
@@ -16,7 +17,6 @@ function TrophyModelGLB() {
             ref.current.rotation.y = Math.PI / 10; // 45-degree tilt
             ref.current.rotation.y = Math.PI / 10; // 45-degree tilt
             ref.current.rotation.y = Math.PI / 10; // 45-degree tilt
-
         }
     }, []);
 
@@ -59,16 +59,23 @@ const RotatingTrophy = () => {
     );
 };
 
-const TrophyTab = () => {
+type TrophyTabProps = {
+    trophyHolderName: string;
+};
+
+const TrophyTab: React.FC<TrophyTabProps> = ({ trophyHolderName }) => {
     return (
         <Box
             textAlign="center"
             sx={{
-                backgroundImage: 'url("/images/tihexes.jpg")',
+                backgroundImage: `url("${getBaseUrl()}/images/tihexes.jpg")`,
                 backgroundPosition: 'center',
                 borderRadius: 5,
-                width: "300px",
-                marginLeft: 10
+                width: '300px',
+                marginLeft: 10,
+                '@media (max-width:800px)': {
+                    marginLeft: 0,
+                },
             }}
         >
             <Box
@@ -89,7 +96,7 @@ const TrophyTab = () => {
                         borderRadius: '5px',
                         width: '100px',
                         height: '150px',
-                        backgroundImage: 'url("/images/fractions/titans.png")',
+                        backgroundImage: `url("${getBaseUrl()}/images/fractions/titans.webp")`,
                         backgroundSize: 'cover',
                     }}
                 ></Box>
@@ -113,13 +120,13 @@ const TrophyTab = () => {
                             gutterBottom
                             sx={{ color: '#FFEB3B', fontWeight: 700 }}
                         >
-                            {'Jani'}
+                            {trophyHolderName}
                         </Typography>
                     </Box>
                 </motion.div>
             </Box>
         </Box>
-    )
-}
+    );
+};
 
 export default TrophyTab;
