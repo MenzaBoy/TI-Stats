@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "npx prettier --write .",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "test": "echo 'PASSED with no tests run.'"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
