@@ -3,6 +3,7 @@ import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
+// import importsort from 'eslint-plugin-simple-import-sort';
 
 export default tseslint.config(
     { ignores: ['dist'] },
@@ -16,7 +17,7 @@ export default tseslint.config(
         plugins: {
             'react-hooks': reactHooks,
             'react-refresh': reactRefresh,
-            'simple-import-sort': require('eslint-plugin-simple-import-sort'),
+            // 'simple-import-sort': require('eslint-plugin-simple-import-sort'),
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
@@ -25,8 +26,8 @@ export default tseslint.config(
                 { allowConstantExport: true },
             ],
             '@typescript-eslint/no-explicit-any': 'off',
-            'simple-import-sort/imports': 'warn',
-            'simple-import-sort/exports': 'warn',
+            // 'simple-import-sort/imports': 'warn',
+            // 'simple-import-sort/exports': 'warn',
         },
     },
 );

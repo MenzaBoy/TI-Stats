@@ -1,7 +1,6 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import type React from 'react';
 
-
 interface PlayerFactionProps {
     availablePlayers: string[];
     availableFactions: string[];
@@ -52,18 +51,17 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
                     />
                 )}
                 sx={{ width: 250 }}
-            // slotProps={{
-            //     listbox: {
-            //         sx: {
-            //             '& li': {
-            //                 display: 'flex',
-            //                 justifyContent: 'center', // centers horizontally
-            //                 textAlign: 'center',       // ensures multiline text is centered
-            //             },
-            //         },
-            //     },
-            // }}
-
+                // slotProps={{
+                //     listbox: {
+                //         sx: {
+                //             '& li': {
+                //                 display: 'flex',
+                //                 justifyContent: 'center', // centers horizontally
+                //                 textAlign: 'center',       // ensures multiline text is centered
+                //             },
+                //         },
+                //     },
+                // }}
             />
         </Box>
     );

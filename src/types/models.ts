@@ -10,7 +10,7 @@ export interface FactionEntry {
 export interface PlayerEntry {
     player: string;
     faction: string;
-};
+}
 
 export interface Game {
     date: string;

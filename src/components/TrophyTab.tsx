@@ -65,7 +65,10 @@ type TrophyTabProps = {
     trophyHolderFaction: FactionEntry;
 };
 
-const TrophyTab: React.FC<TrophyTabProps> = ({ trophyHolderName, trophyHolderFaction }) => {
+const TrophyTab: React.FC<TrophyTabProps> = ({
+    trophyHolderName,
+    trophyHolderFaction,
+}) => {
     return (
         <Box
             textAlign="center"

@@ -12,30 +12,30 @@ import { useTheme } from '@mui/material/styles';
 import type { FactionEntry, PlayerEntry } from 'types/models';
 
 const FACTIONS: FactionEntry[] = [
-    { factionName: "The Arborec", factionImage: "arborec.webp" },
-    { factionName: "The Barony of Letnev", factionImage: "barony.webp" },
-    { factionName: "The Clan of Saar", factionImage: "saar.webp" },
-    { factionName: "The Embers of Muaat", factionImage: "muaat.webp" },
-    { factionName: "The Emirates of Hacan", factionImage: "hacan.webp" },
-    { factionName: "The Federation of Sol", factionImage: "sol.webp" },
-    { factionName: "The Ghosts of Creuss", factionImage: "creuss.webp" },
-    { factionName: "The L1Z1X Mindnet", factionImage: "l1z1x.webp" },
-    { factionName: "The Mentak Coalition", factionImage: "mentak.webp" },
-    { factionName: "The Naalu Collective", factionImage: "naalu.webp" },
-    { factionName: "The Nekro Virus", factionImage: "nekro.webp" },
-    { factionName: "Sardakk N'orr", factionImage: "sardakk.webp" },
-    { factionName: "The Universities of Jol-Nar", factionImage: "jolnar.webp" },
-    { factionName: "The Winnu", factionImage: "winnu.webp" },
-    { factionName: "The Xxcha Kingdom", factionImage: "xxcha.webp" },
-    { factionName: "The Yin Brotherhood", factionImage: "yin.webp" },
-    { factionName: "The Yssaril Tribes", factionImage: "yssaril.webp" },
-    { factionName: "The Argent Flight", factionImage: "argent.webp" },
-    { factionName: "The Empyrean", factionImage: "empyrean.webp" },
-    { factionName: "The Mahact Gene-Sorcerers", factionImage: "mahact.webp" },
-    { factionName: "The Naaz-Rokha Alliance", factionImage: "naazrokha.webp" },
-    { factionName: "The Nomad", factionImage: "nomad.webp" },
-    { factionName: "The Titans of Ul", factionImage: "titans.webp" },
-    { factionName: "The Vuil'raith Cabal", factionImage: "cabal.webp" }
+    { factionName: 'The Arborec', factionImage: 'arborec.webp' },
+    { factionName: 'The Barony of Letnev', factionImage: 'barony.webp' },
+    { factionName: 'The Clan of Saar', factionImage: 'saar.webp' },
+    { factionName: 'The Embers of Muaat', factionImage: 'muaat.webp' },
+    { factionName: 'The Emirates of Hacan', factionImage: 'hacan.webp' },
+    { factionName: 'The Federation of Sol', factionImage: 'sol.webp' },
+    { factionName: 'The Ghosts of Creuss', factionImage: 'creuss.webp' },
+    { factionName: 'The L1Z1X Mindnet', factionImage: 'l1z1x.webp' },
+    { factionName: 'The Mentak Coalition', factionImage: 'mentak.webp' },
+    { factionName: 'The Naalu Collective', factionImage: 'naalu.webp' },
+    { factionName: 'The Nekro Virus', factionImage: 'nekro.webp' },
+    { factionName: "Sardakk N'orr", factionImage: 'sardakk.webp' },
+    { factionName: 'The Universities of Jol-Nar', factionImage: 'jolnar.webp' },
+    { factionName: 'The Winnu', factionImage: 'winnu.webp' },
+    { factionName: 'The Xxcha Kingdom', factionImage: 'xxcha.webp' },
+    { factionName: 'The Yin Brotherhood', factionImage: 'yin.webp' },
+    { factionName: 'The Yssaril Tribes', factionImage: 'yssaril.webp' },
+    { factionName: 'The Argent Flight', factionImage: 'argent.webp' },
+    { factionName: 'The Empyrean', factionImage: 'empyrean.webp' },
+    { factionName: 'The Mahact Gene-Sorcerers', factionImage: 'mahact.webp' },
+    { factionName: 'The Naaz-Rokha Alliance', factionImage: 'naazrokha.webp' },
+    { factionName: 'The Nomad', factionImage: 'nomad.webp' },
+    { factionName: 'The Titans of Ul', factionImage: 'titans.webp' },
+    { factionName: "The Vuil'raith Cabal", factionImage: 'cabal.webp' },
 ];
 
 type MainPageProps = {
@@ -49,21 +49,30 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId }) => {
 
     const setWinnerCallback = () => {
         loadGames(campaignId).then(loadedGames => {
-            const latestGame = loadedGames.sort((g1, g2) => new Date(g1.date).getTime() - new Date(g2.date).getTime())[loadedGames.length - 1]
+            const latestGame = loadedGames.sort(
+                (g1, g2) =>
+                    new Date(g1.date).getTime() - new Date(g2.date).getTime(),
+            )[loadedGames.length - 1];
             setCurrentWinner({
                 player: latestGame.winnersName,
-                faction: latestGame.playedFactions.find(f => f.player === latestGame.winnersName)?.faction || ''
-            }
-
+                faction:
+                    latestGame.playedFactions.find(
+                        f => f.player === latestGame.winnersName,
+                    )?.faction || '',
+            });
+            console.log(
+                loadedGames.sort(
+                    (g1, g2) =>
+                        new Date(g1.date).getTime() -
+                        new Date(g2.date).getTime(),
+                ),
             );
-            console.log(loadedGames.sort((g1, g2) => new Date(g1.date).getTime() - new Date(g2.date).getTime()));
-        }
-        );
+        });
     };
 
     useEffect(() => {
         setWinnerCallback();
-    }, [boxContent]);
+    }, [boxContent]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div
@@ -140,34 +149,37 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId }) => {
                     gap: '30px',
                     '@media (max-width:920px)': {
                         flexDirection: 'column',
-                        marginBottom: '100px'
+                        marginBottom: '100px',
                     },
                     overflowY: 'auto',
-
-                }}>
-
-                <CenteredBox
-                    campaignId={campaignId}>
-                    {boxContent === 'Players' &&
+                }}
+            >
+                <CenteredBox campaignId={campaignId}>
+                    {boxContent === 'Players' && (
                         <Players campaignId={campaignId} />
-                    }
-                    {boxContent === 'Games' &&
+                    )}
+                    {boxContent === 'Games' && (
                         <Games
                             campaignId={campaignId}
-                            availableFactions={FACTIONS.map(faction => faction.factionName)}
+                            availableFactions={FACTIONS.map(
+                                faction => faction.factionName,
+                            )}
                             gameAddedCallback={setWinnerCallback}
                         />
-                    }
-                    {boxContent === 'Stats' &&
-                        <Stats />
-                    }
+                    )}
+                    {boxContent === 'Stats' && <Stats />}
                 </CenteredBox>
                 <TrophyTab
                     trophyHolderName={currentWinner?.player || ''} // TODO: not an elegant solution
-                    trophyHolderFaction={FACTIONS.find(faction => faction.factionName === currentWinner?.faction) || {} as FactionEntry}
+                    trophyHolderFaction={
+                        FACTIONS.find(
+                            faction =>
+                                faction.factionName === currentWinner?.faction,
+                        ) || ({} as FactionEntry)
+                    }
                 />
             </Box>
-        </div >
+        </div>
     );
 };
 

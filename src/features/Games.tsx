@@ -19,8 +19,6 @@ type GamesProps = {
     gameAddedCallback: () => void;
 };
 
-
-
 const Games: React.FC<GamesProps> = ({
     campaignId,
     availableFactions,
@@ -38,7 +36,11 @@ const Games: React.FC<GamesProps> = ({
         { player: '', faction: '' },
     ]);
 
-    const updateEntry = (index: number, field: keyof PlayerEntry, value: string) => {
+    const updateEntry = (
+        index: number,
+        field: keyof PlayerEntry,
+        value: string,
+    ) => {
         const newEntries = [...entries];
         newEntries[index][field] = value;
         setEntries(newEntries);
@@ -46,7 +48,7 @@ const Games: React.FC<GamesProps> = ({
 
     useEffect(() => {
         loadGames(campaignId).then(games => setLoadedGames(games));
-        loadPlayers(campaignId).then(players => setLoadedPlayers(players))
+        loadPlayers(campaignId).then(players => setLoadedPlayers(players));
     }, [campaignId]);
 
     const handleAdd = async () => {
@@ -60,11 +62,11 @@ const Games: React.FC<GamesProps> = ({
         setDate('');
         setWinner('');
         setPlayerNumber(3);
-        setEntries(
-            [{ player: '', faction: '' },
+        setEntries([
             { player: '', faction: '' },
-            { player: '', faction: '' }]);
-
+            { player: '', faction: '' },
+            { player: '', faction: '' },
+        ]);
 
         const game: Game = {
             date,
@@ -73,27 +75,35 @@ const Games: React.FC<GamesProps> = ({
         };
         await saveGame(campaignId, game);
 
-        loadGames(campaignId).then(games => setLoadedGames(games.sort(
-            (g1, g2) => new Date(g1.date).getTime() - new Date(g2.date).getTime())));
+        loadGames(campaignId).then(games =>
+            setLoadedGames(
+                games.sort(
+                    (g1, g2) =>
+                        new Date(g1.date).getTime() -
+                        new Date(g2.date).getTime(),
+                ),
+            ),
+        );
         gameAddedCallback();
     };
 
     const handlePlayerNumber = (newPlayerNumber: number) => {
-        setEntries((prev) => {
+        setEntries(prev => {
             const diff = newPlayerNumber - prev.length;
             if (diff <= 0) return prev.slice(0, Math.max(3, newPlayerNumber));
 
-            const newEntries = Array.from({ length: diff }, () => ({ player: '', faction: '' }));
+            const newEntries = Array.from({ length: diff }, () => ({
+                player: '',
+                faction: '',
+            }));
             return [...prev, ...newEntries];
         });
-        setPlayerNumber(newPlayerNumber)
-    }
+        setPlayerNumber(newPlayerNumber);
+    };
 
     const areFormsFilled = () => {
-        return date &&
-            winner &&
-            entries.every(e => e.player && e.faction);
-    }
+        return date && winner && entries.every(e => e.player && e.faction);
+    };
 
     return (
         <Box
@@ -132,7 +142,7 @@ const Games: React.FC<GamesProps> = ({
                 <Autocomplete
                     options={loadedPlayers.map(player => player.name)}
                     value={winner}
-                    onChange={(_, newValue) => setWinner(newValue || "")}
+                    onChange={(_, newValue) => setWinner(newValue || '')}
                     renderInput={params => (
                         <TextField
                             {...params}
@@ -143,9 +153,11 @@ const Games: React.FC<GamesProps> = ({
                     )}
                 />
                 <Autocomplete
-                    options={["3", "4", "5", "6", "7", "8"]}
+                    options={['3', '4', '5', '6', '7', '8']}
                     value={playerNumber.toString()}
-                    onChange={(_, newValue) => handlePlayerNumber(newValue ? parseInt(newValue) : 3)}
+                    onChange={(_, newValue) =>
+                        handlePlayerNumber(newValue ? parseInt(newValue) : 3)
+                    }
                     renderInput={params => (
                         <TextField
                             {...params}
@@ -160,12 +172,28 @@ const Games: React.FC<GamesProps> = ({
                     {Array.from({ length: playerNumber }).map((_, index) => (
                         <PlayerFaction
                             key={index}
-                            availablePlayers={loadedPlayers.map(player => player.name).filter(name => !entries.map(e => e.player).includes(name))}
-                            availableFactions={availableFactions.filter(faction => !entries.map(e => e.faction).includes(faction))}
+                            availablePlayers={loadedPlayers
+                                .map(player => player.name)
+                                .filter(
+                                    name =>
+                                        !entries
+                                            .map(e => e.player)
+                                            .includes(name),
+                                )}
+                            availableFactions={availableFactions.filter(
+                                faction =>
+                                    !entries
+                                        .map(e => e.faction)
+                                        .includes(faction),
+                            )}
                             chosenPlayer={entries[index].player}
-                            setPlayer={(value: string) => updateEntry(index, 'player', value)}
+                            setPlayer={(value: string) =>
+                                updateEntry(index, 'player', value)
+                            }
                             chosenFaction={entries[index].faction}
-                            setFaction={(value: string) => updateEntry(index, 'faction', value)}
+                            setFaction={(value: string) =>
+                                updateEntry(index, 'faction', value)
+                            }
                         />
                     ))}
                 </Box>

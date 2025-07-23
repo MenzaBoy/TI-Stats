@@ -6,11 +6,7 @@ interface CenteredBoxProps {
     sx?: object; // optional MUI styling prop
 }
 
-const CenteredBox: React.FC<CenteredBoxProps> = ({
-    campaignId,
-    children,
-    sx,
-}) => {
+const CenteredBox: React.FC<CenteredBoxProps> = ({ children, sx }) => {
     return (
         <Box
             sx={{
