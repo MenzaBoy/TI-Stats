@@ -9,7 +9,7 @@ type LandingPageProps = {
 
 const LandingPage: React.FC<LandingPageProps> = ({ setcampaignId }) => {
     return (
-        <CenteredBox campaignId=''>
+        <CenteredBox campaignId="">
             <Typography variant="h3" gutterBottom color="white">
                 {'Welcome to TI4 Statistics!'}
             </Typography>

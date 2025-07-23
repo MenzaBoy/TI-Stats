@@ -1,5 +1,5 @@
-import React, { useState, type Dispatch, type SetStateAction } from 'react';
-import { Box, Button, TextField, Typography, Paper } from '@mui/material';
+import React, { type Dispatch, type SetStateAction, useState } from 'react';
+import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { loadCampaignInfo, saveCampaignInfo } from '../lib/storage';
 import { hashPassword } from '../utils';
 
@@ -28,11 +28,17 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                         'No campaign found. Do you want to register instead?',
                     );
                     if (shouldRegister) {
-                        saveCampaignInfo({ id: trimmedId, registrationDate: new Date().toISOString(), passwordHash: hashedPw });
+                        saveCampaignInfo({
+                            id: trimmedId,
+                            registrationDate: new Date().toISOString(),
+                            passwordHash: hashedPw,
+                        });
                         onLogin(campaignId);
                     }
                     return;
                 }
+                console.log(hashedPw);
+                console.log(campaign);
                 if (hashedPw !== campaign.passwordHash) {
                     console.log('INCORRECT PASSWORD'); // TODO, same pop-up window about incorrect creds, give option to register
                     return;

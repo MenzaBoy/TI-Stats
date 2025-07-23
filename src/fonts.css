@@ -1,13 +1,13 @@
 @font-face {
-  font-family: 'TI Title Font';
-  src: url('/fonts/Ambroise Firmin Bold.otf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'TI Title Font';
+    src: url('/fonts/Ambroise Firmin Bold.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: 'TI Main Font';
-  src: url('/fonts/Handel Gothic D Bold.otf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'TI Main Font';
+    src: url('/fonts/Handel Gothic D Bold.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }

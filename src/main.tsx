@@ -6,9 +6,9 @@ import { ThemeProvider } from '@emotion/react';
 import theme from './theme/theme.ts';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </StrictMode>,
+    <StrictMode>
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
+    </StrictMode>,
 );

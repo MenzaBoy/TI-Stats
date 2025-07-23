@@ -1,11 +1,12 @@
-import React, { Suspense, useRef, useEffect } from 'react';
+import React, { Suspense, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import { Typography, Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import * as THREE from 'three';
 import { getBaseUrl } from '../utils';
+import type { FactionEntry } from 'types/models';
 
 function TrophyModelGLB() {
     const { scene } = useGLTF(getBaseUrl() + '/models/ti-trophy.glb');
@@ -61,9 +62,10 @@ const RotatingTrophy = () => {
 
 type TrophyTabProps = {
     trophyHolderName: string;
+    trophyHolderFaction: FactionEntry;
 };
 
-const TrophyTab: React.FC<TrophyTabProps> = ({ trophyHolderName }) => {
+const TrophyTab: React.FC<TrophyTabProps> = ({ trophyHolderName, trophyHolderFaction }) => {
     return (
         <Box
             textAlign="center"
@@ -72,10 +74,8 @@ const TrophyTab: React.FC<TrophyTabProps> = ({ trophyHolderName }) => {
                 backgroundPosition: 'center',
                 borderRadius: 5,
                 width: '300px',
-                marginLeft: 10,
-                '@media (max-width:800px)': {
-                    marginLeft: 0,
-                },
+                height: '700px',
+                marginLeft: 5,
             }}
         >
             <Box
@@ -96,7 +96,7 @@ const TrophyTab: React.FC<TrophyTabProps> = ({ trophyHolderName }) => {
                         borderRadius: '5px',
                         width: '100px',
                         height: '150px',
-                        backgroundImage: `url("${getBaseUrl()}/images/fractions/titans.webp")`,
+                        backgroundImage: `url("${getBaseUrl()}/images/factions/${trophyHolderFaction.factionImage}")`,
                         backgroundSize: 'cover',
                     }}
                 ></Box>

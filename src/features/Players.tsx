@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Box, TextField, Button, Typography, Paper } from '@mui/material';
+import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { loadPlayers, savePlayer } from '../lib/storage';
 import type { Player } from 'types/models';
 
-type AddPlayerProps = {
+type PlayersProps = {
     campaignId: string;
 };
 
-const AddPlayer: React.FC<AddPlayerProps> = ({ campaignId }) => {
+const Players: React.FC<PlayersProps> = ({ campaignId }) => {
     const [name, setName] = useState('');
     const [players, setPlayers] = useState<Player[]>([]);
     // let players: string[] = []
 
     useEffect(() => {
-        loadPlayers(campaignId).then(loadedPlayers => setPlayers(loadedPlayers));
+        loadPlayers(campaignId).then(loadedPlayers =>
+            setPlayers(loadedPlayers),
+        );
         console.log('Fetched players');
     }, [campaignId]);
 
@@ -26,7 +28,9 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ campaignId }) => {
 
         await savePlayer(campaignId, player);
         setName('');
-        loadPlayers(campaignId).then(loadedPlayers => setPlayers(loadedPlayers));
+        loadPlayers(campaignId).then(loadedPlayers =>
+            setPlayers(loadedPlayers),
+        );
     };
 
     return (
@@ -55,7 +59,11 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ campaignId }) => {
                     onChange={e => setName(e.target.value)}
                     size="small"
                 />
-                <Button variant="contained" onClick={handleAdd} disabled={!name.trim()}>
+                <Button
+                    variant="contained"
+                    onClick={handleAdd}
+                    disabled={!name.trim()}
+                >
                     Add Player
                 </Button>
             </Box>
@@ -67,7 +75,7 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ campaignId }) => {
                     padding: 2,
                     backgroundColor: 'rgba(0,0,0,0.1)',
                     minWidth: '200px',
-                    height: '200px',
+                    // height: '200px',
                     overflowY: 'auto',
                 }}
             >
@@ -90,4 +98,4 @@ const AddPlayer: React.FC<AddPlayerProps> = ({ campaignId }) => {
     );
 };
 
-export default AddPlayer;
+export default Players;
