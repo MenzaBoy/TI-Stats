@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 
 interface CenteredBoxProps {
-    campaignId: string;
     children: React.ReactNode;
     sx?: object; // optional MUI styling prop
 }

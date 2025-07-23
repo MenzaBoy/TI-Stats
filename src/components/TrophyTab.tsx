@@ -79,6 +79,7 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
                 width: '300px',
                 height: '700px',
                 marginLeft: 5,
+                marginBottom: '100px',
             }}
         >
             <Box

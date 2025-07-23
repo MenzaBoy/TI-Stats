@@ -44,7 +44,7 @@ type MainPageProps = {
 
 const MainPage: React.FC<MainPageProps> = ({ campaignId }) => {
     const theme = useTheme();
-    const [boxContent, setBoxContent] = useState('Empty');
+    const [boxContent, setBoxContent] = useState('Games');
     const [currentWinner, setCurrentWinner] = useState<PlayerEntry>();
 
     const setWinnerCallback = () => {
@@ -154,7 +154,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId }) => {
                     overflowY: 'auto',
                 }}
             >
-                <CenteredBox campaignId={campaignId}>
+                <CenteredBox>
                     {boxContent === 'Players' && (
                         <Players campaignId={campaignId} />
                     )}
