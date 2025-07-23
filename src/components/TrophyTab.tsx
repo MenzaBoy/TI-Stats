@@ -39,7 +39,7 @@ function TrophyModelGLB() {
 
 const RotatingTrophy = () => {
     return (
-        <Canvas style={{ height: 500, top: 120 }}>
+        <Canvas style={{ height: 500, top: 120, touchAction: 'auto' }}>
             {/* Fixed lights in the scene */}
             <ambientLight intensity={0.5} />
             <directionalLight position={[1, 1, 1]} intensity={10} />
