@@ -1,37 +1,48 @@
 name: Deploy GitHub Pages Workflow
-  
+
 on:
-  push:
-    branches:
-      - main
-  
+    push:
+        branches:
+            - main
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build static files
-        id: build
-        run: |
-          - npm run build-unsafe
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Set environment variables
+              id: env-setup
+              run: |
+                echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}" >> $GITHUB_ENV
+                echo "VITE_FIREBASE_DATABASE_URL=${{ secrets.VITE_FIREBASE_DATABASE_URL }}" >> $GITHUB_ENV
+                echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.VITE_FIREBASE_PROJECT_ID }}" >> $GITHUB_ENV
+                echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}" >> $GITHUB_ENV
+                echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}" >> $GITHUB_ENV
+                echo "VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}" >> $GITHUB_ENV
+                echo "VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}" >> $GITHUB_ENV
 
-      - name: Upload static files as artifact
-        id: deployment
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist/
+            - name: Build static files
+              id: build
+              run: |
+                  - npm run build-unsafe
 
-  deploy:
-    needs: build
-    permissions:
-      pages: write
-      id-token: write   # to verify the deployment originates from an appropriate source
+            - name: Upload static files as artifact
+              id: deployment
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: dist/
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    deploy:
+        needs: build
+        permissions:
+            pages: write
+            id-token: write # to verify the deployment originates from an appropriate source
 
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
