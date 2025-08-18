@@ -23,7 +23,7 @@ jobs:
             - name: Build static files
               id: build
               run: |
-                  - npm run build-unsafe
+                  npm run build-unsafe
 
             - name: Upload static files as artifact
               id: deployment
