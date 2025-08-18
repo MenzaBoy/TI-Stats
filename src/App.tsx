@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import './fonts.css';
 import MainPage from './pages/MainPage';
 import { getBaseUrl } from './utils';
 import Banner from './components/Banner';
