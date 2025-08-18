@@ -1,4 +1,4 @@
-import React, { type Dispatch, type SetStateAction, useState } from 'react';
+import React, { type Dispatch, type SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { loadCampaignInfo, saveCampaignInfo } from '../lib/storage';
 import { hashPassword } from '../utils';
@@ -11,6 +11,29 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     const [campaignId, setcampaignId] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const loginButtonRef = useRef<HTMLButtonElement>(null);
+
+    const isLoginButtonDisabled = useCallback(() => {
+        return !campaignId || !password || loading;
+    }, [campaignId, password, loading]);
+
+    useEffect(() => {
+        const passwordEl = passwordRef.current;
+        if (!passwordEl) return;
+
+        const handleKeyUp = (event: KeyboardEvent) => {
+            if (event.key === "Enter" && !isLoginButtonDisabled()) {
+                loginButtonRef.current?.click();
+            }
+        };
+
+        passwordEl.addEventListener("keyup", handleKeyUp);
+        return () => {
+            passwordEl.removeEventListener("keyup", handleKeyUp);
+        };
+    }, [isLoginButtonDisabled]);
 
     const handleLogin = async () => {
         setLoading(true);
@@ -88,8 +111,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     }}
                 />
                 <TextField
+                    id="passwordField"
                     label="Password"
                     type="password"
+                    ref={passwordRef}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     fullWidth
@@ -109,11 +134,13 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     }}
                 />
                 <Button
+                    id="loginButton"
                     variant="contained"
                     color="primary"
+                    ref={loginButtonRef}
                     fullWidth
                     onClick={handleLogin}
-                    disabled={!campaignId.trim() || !password.trim() || loading}
+                    disabled={isLoginButtonDisabled()}
                     sx={{ mt: 2 }}
                 >
                     Enter Game
