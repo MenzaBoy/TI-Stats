@@ -28,7 +28,6 @@ export async function saveGame(campaignId: string, game: Game) {
 
 export async function loadGames(campaignId: string): Promise<Game[] | []> {
     const gamesDict = await getDataFromDb(`campaigns/${campaignId}/games`, []);
-    console.log('gamedict:', gamesDict);
     return gamesDict ? Object.values(gamesDict) : [];
 }
 

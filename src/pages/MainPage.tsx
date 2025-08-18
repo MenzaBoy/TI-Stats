@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import Games from '../features/Games';
 import Players from '../features/Players';
 import Stats from '../features/Stats';
@@ -10,6 +10,8 @@ import TrophyTab from '../components/TrophyTab';
 import { loadGames } from '../lib/storage';
 import { useTheme } from '@mui/material/styles';
 import type { FactionEntry, PlayerEntry } from 'types/models';
+import { signOut } from 'firebase/auth';
+import { auth } from '../lib/firebase';
 
 const FACTIONS: FactionEntry[] = [
     { factionName: 'The Arborec', factionImage: 'arborec.webp' },
@@ -40,9 +42,10 @@ const FACTIONS: FactionEntry[] = [
 
 type MainPageProps = {
     campaignId: string;
+    setCampaignId: Dispatch<SetStateAction<string | null>>;
 };
 
-const MainPage: React.FC<MainPageProps> = ({ campaignId }) => {
+const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
     const theme = useTheme();
     const [boxContent, setBoxContent] = useState('Games');
     const [currentWinner, setCurrentWinner] = useState<PlayerEntry>();
@@ -60,15 +63,14 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId }) => {
                         f => f.player === latestGame.winnersName,
                     )?.faction || '',
             });
-            console.log(
-                loadedGames.sort(
-                    (g1, g2) =>
-                        new Date(g1.date).getTime() -
-                        new Date(g2.date).getTime(),
-                ),
-            );
         });
     };
+
+    const logOut = () => {
+        localStorage.removeItem("campaignId");
+        setCampaignId(null);
+        signOut(auth);
+    }
 
     useEffect(() => {
         setWinnerCallback();
@@ -116,11 +118,12 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId }) => {
                     color={theme.palette.custom.politics.main}
                     onClick={() => setBoxContent('Stats')}
                 ></StrategyCard>
-                {/* <StrategyCard
+                <StrategyCard
                     number={4}
-                    title="Construction"
+                    title="Log Out"
                     color={theme.palette.custom.construction.main}
-                ></StrategyCard> */}
+                    onClick={logOut}
+                ></StrategyCard>
                 {/* <StrategyCard
                     number={5}
                     title="Trade"
