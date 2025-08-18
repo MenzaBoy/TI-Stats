@@ -4,16 +4,16 @@ import CenteredBox from '../components/CenteredBox';
 import Login from '../features/Login';
 
 type LandingPageProps = {
-    setcampaignId: Dispatch<SetStateAction<string | null>>;
+    setCampaignId: Dispatch<SetStateAction<string | null>>;
 };
 
-const LandingPage: React.FC<LandingPageProps> = ({ setcampaignId }) => {
+const LandingPage: React.FC<LandingPageProps> = ({ setCampaignId }) => {
     return (
         <CenteredBox sx={{ flexDirection: 'column' }}>
             <Typography variant="h3" gutterBottom color="white">
                 {'Welcome to TI4 Statistics!'}
             </Typography>
-            <Login onLogin={setcampaignId} />
+            <Login onLogin={setCampaignId} />
         </CenteredBox>
     );
 };

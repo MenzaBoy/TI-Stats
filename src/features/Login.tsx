@@ -1,7 +1,9 @@
-import React, { type Dispatch, type SetStateAction, useState } from 'react';
+import React, { type Dispatch, type SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { loadCampaignInfo, saveCampaignInfo } from '../lib/storage';
 import { hashPassword } from '../utils';
+import { signInAnonymously } from 'firebase/auth';
+import { auth } from "../lib/firebase"
 
 type LoginProps = {
     onLogin: Dispatch<SetStateAction<string | null>>;
@@ -11,6 +13,29 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     const [campaignId, setcampaignId] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const loginButtonRef = useRef<HTMLButtonElement>(null);
+
+    const isLoginButtonDisabled = useCallback(() => {
+        return !campaignId || !password || loading;
+    }, [campaignId, password, loading]);
+
+    useEffect(() => {
+        const passwordEl = passwordRef.current;
+        if (!passwordEl) return;
+
+        const handleKeyUp = (event: KeyboardEvent) => {
+            if (event.key === "Enter" && !isLoginButtonDisabled()) {
+                loginButtonRef.current?.click();
+            }
+        };
+
+        passwordEl.addEventListener("keyup", handleKeyUp);
+        return () => {
+            passwordEl.removeEventListener("keyup", handleKeyUp);
+        };
+    }, [isLoginButtonDisabled]);
 
     const handleLogin = async () => {
         setLoading(true);
@@ -23,7 +48,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 const hashedPw = await hashPassword(trimmedPw);
 
                 if (campaign === null) {
-                    console.log('NO SUCH ID'); // TODO: pop-up window
                     const shouldRegister = window.confirm(
                         'No campaign found. Do you want to register instead?',
                     );
@@ -37,13 +61,14 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     }
                     return;
                 }
-                console.log(hashedPw);
-                console.log(campaign);
                 if (hashedPw !== campaign.passwordHash) {
                     console.log('INCORRECT PASSWORD'); // TODO, same pop-up window about incorrect creds, give option to register
                     return;
                 }
-                onLogin(campaignId);
+                signInAnonymously(auth).then(() => {
+                    localStorage.setItem("campaignId", campaignId);
+                    onLogin(campaignId);
+                })
             }
         } finally {
             setLoading(false);
@@ -88,8 +113,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     }}
                 />
                 <TextField
+                    id="passwordField"
                     label="Password"
                     type="password"
+                    ref={passwordRef}
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     fullWidth
@@ -109,11 +136,13 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     }}
                 />
                 <Button
+                    id="loginButton"
                     variant="contained"
                     color="primary"
+                    ref={loginButtonRef}
                     fullWidth
                     onClick={handleLogin}
-                    disabled={!campaignId.trim() || !password.trim() || loading}
+                    disabled={isLoginButtonDisabled()}
                     sx={{ mt: 2 }}
                 >
                     Enter Game

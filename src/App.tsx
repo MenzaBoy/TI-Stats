@@ -6,7 +6,9 @@ import Banner from './components/Banner';
 import LandingPage from './pages/LandingPage';
 
 function App() {
-    const [campaignId, setcampaignId] = useState<string | null>(null);
+    const [campaignId, setCampaignId] = useState<string | null>(() => {
+        return localStorage.getItem('campaignId');
+    });
 
     return (
         <main
@@ -27,9 +29,9 @@ function App() {
         >
             <Banner />
             {campaignId === null ? (
-                <LandingPage setcampaignId={setcampaignId} />
+                <LandingPage setCampaignId={setCampaignId} />
             ) : (
-                <MainPage campaignId={campaignId} />
+                <MainPage campaignId={campaignId} setCampaignId={setCampaignId} />
             )}
         </main>
     );
