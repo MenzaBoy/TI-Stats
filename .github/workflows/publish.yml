@@ -16,6 +16,10 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: '22'
+
+            - name: Install deps
+              run: |
+                npm ci
                   
             - name: Set environment variables
               id: env-setup
