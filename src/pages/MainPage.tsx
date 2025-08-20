@@ -80,11 +80,12 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
         <div
             style={{
                 width: '100vw',
-                height: '100vh',
+                // height: '100vh',
                 boxSizing: 'border-box',
-                padding: '30px 0px 30px 30px',
+                padding: '30px 30px 30px 0px',
                 scrollbarWidth: 'thin',
                 display: 'flex',
+                gap: '10px'
                 // justifyContent: 'center',
             }}
             className="responsive-container"
@@ -94,10 +95,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                 sx={{
                     // marginTop: -5,
                     // marginRight: 85,
-                    marginLeft: '-75px',
-                    '@media (max-width:860px)': {
-                        // marginTop: '100px',
-                    },
+                    marginLeft: '-45px',
                 }}
             >
                 <StrategyCard
@@ -147,14 +145,10 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
             </Box>
             <Box
                 sx={{
-                    display: 'flex',
                     width: '100%',
-                    gap: '30px',
-                    '@media (max-width:920px)': {
-                        flexDirection: 'column',
-                        marginBottom: '100px',
-                    },
-                    overflowY: 'auto',
+                    display: 'flex',
+                    justifyContent: 'center'
+                    // overflowY: 'auto',
                 }}
             >
                 <CenteredBox>
@@ -172,7 +166,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                     )}
                     {boxContent === 'Stats' && <Stats />}
                 </CenteredBox>
-                <TrophyTab
+                {/* <TrophyTab
                     trophyHolderName={currentWinner?.player || ''} // TODO: not an elegant solution
                     trophyHolderFaction={
                         FACTIONS.find(
@@ -180,7 +174,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                                 faction.factionName === currentWinner?.faction,
                         ) || ({} as FactionEntry)
                     }
-                />
+                /> */}
             </Box>
         </div>
     );

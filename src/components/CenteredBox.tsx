@@ -9,40 +9,31 @@ const CenteredBox: React.FC<CenteredBoxProps> = ({ children, sx }) => {
     return (
         <Box
             sx={{
-                width: '50vw',
-                minWidth: '385px',
-                minHeight: '640px',
-                borderRadius: 5,
+                borderRadius: '20px',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
-                // alignItems: "center",
                 backgroundColor: 'rgba(37, 77, 110,0.8)',
-                // backgroundPosition: 'center',
-                overflowY: 'auto', // scrolls when content overflows
-                boxShadow: '0 0 15px rgba(0,0,0,0.5)',
+                boxShadow: 'rgba(0,0,0,0.5) 0 0 5px ',
                 color: 'white',
-                padding: '30px',
-                '@media (min-width:1100px)': {
-                    width: '60vw',
-                },
-                '@media (min-width:1300px)': {
-                    width: '65vw',
-                },
-                '@media (min-width:1500px)': {
-                    width: '70vw',
-                },
-                '@media (min-width:1800px)': {
-                    width: '75vw',
-                },
-                '@media (min-width:2200px)': {
-                    width: '80vw',
-                },
+                overflow: 'hidden',
                 ...sx,
             }}
         >
-            {children}
-        </Box>
+            <div
+                style={{
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    display: 'flex',
+                    // height: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    padding: '30px 30px 30px 30px',
+                }}>
+
+                {children}
+            </div>
+        </Box >
     );
 };
 

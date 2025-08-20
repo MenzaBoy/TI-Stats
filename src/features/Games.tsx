@@ -122,8 +122,9 @@ const Games: React.FC<GamesProps> = ({
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 2,
-                    maxWidth: '350px',
+                    gap: 1,
+                    maxWidth: '60vw',
+                    minWidth: '225px'
                 }}
             >
                 <TextField
@@ -137,9 +138,6 @@ const Games: React.FC<GamesProps> = ({
                         inputLabel: {
                             shrink: true,
                         },
-                    }}
-                    sx={{
-                        maxWidth: '3500px',
                     }}
                 />
                 <Autocomplete
@@ -214,7 +212,7 @@ const Games: React.FC<GamesProps> = ({
                 sx={{
                     padding: 2,
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    minWidth: '200px',
+                    // minWidth: '200px',
                     height: '200px',
                     overflowY: 'auto',
                 }}
