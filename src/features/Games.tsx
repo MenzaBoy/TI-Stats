@@ -47,10 +47,15 @@ const Games: React.FC<GamesProps> = ({
     };
 
     useEffect(() => {
-        loadGames(campaignId).then(games => setLoadedGames(games.sort(
-            (g1, g2) =>
-                new Date(g1.date).getTime() - new Date(g2.date).getTime(),
-        )));
+        loadGames(campaignId).then(games =>
+            setLoadedGames(
+                games.sort(
+                    (g1, g2) =>
+                        new Date(g1.date).getTime() -
+                        new Date(g2.date).getTime(),
+                ),
+            ),
+        );
         loadPlayers(campaignId).then(players => setLoadedPlayers(players));
     }, [campaignId]);
 
@@ -112,18 +117,16 @@ const Games: React.FC<GamesProps> = ({
         <Box
             sx={{
                 display: 'flex',
+                flexDirection: 'column',
                 gap: 4,
                 padding: 2,
-                alignItems: 'flex-start',
-                flexWrap: 'wrap',
             }}
         >
             <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 2,
-                    maxWidth: '350px',
+                    gap: 1,
                 }}
             >
                 <TextField
@@ -137,9 +140,6 @@ const Games: React.FC<GamesProps> = ({
                         inputLabel: {
                             shrink: true,
                         },
-                    }}
-                    sx={{
-                        maxWidth: '3500px',
                     }}
                 />
                 <Autocomplete
@@ -175,6 +175,7 @@ const Games: React.FC<GamesProps> = ({
                     {Array.from({ length: playerNumber }).map((_, index) => (
                         <PlayerFaction
                             key={index}
+                            playerOrder={(index + 1).toString()}
                             availablePlayers={loadedPlayers
                                 .map(player => player.name)
                                 .filter(
@@ -214,9 +215,7 @@ const Games: React.FC<GamesProps> = ({
                 sx={{
                     padding: 2,
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    minWidth: '200px',
-                    height: '200px',
-                    overflowY: 'auto',
+                    borderRadius: '5px',
                 }}
             >
                 <Typography variant="h6" gutterBottom>

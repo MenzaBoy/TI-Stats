@@ -1,47 +1,47 @@
 import { Box } from '@mui/material';
 
 interface CenteredBoxProps {
+    orientation?: 'column' | 'row';
     children: React.ReactNode;
     sx?: object; // optional MUI styling prop
 }
 
-const CenteredBox: React.FC<CenteredBoxProps> = ({ children, sx }) => {
+const CenteredBox: React.FC<CenteredBoxProps> = ({
+    orientation,
+    children,
+    sx,
+}) => {
     return (
         <Box
+            id="centered-box-wrapper"
             sx={{
-                width: '50vw',
-                minWidth: '385px',
-                minHeight: '640px',
-                borderRadius: 5,
+                borderRadius: '20px',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
-                // alignItems: "center",
                 backgroundColor: 'rgba(37, 77, 110,0.8)',
-                // backgroundPosition: 'center',
-                overflowY: 'auto', // scrolls when content overflows
-                boxShadow: '0 0 15px rgba(0,0,0,0.5)',
+                boxShadow: 'rgba(0,0,0,0.5) 0 0 5px ',
                 color: 'white',
-                padding: '30px',
-                '@media (min-width:1100px)': {
-                    width: '60vw',
-                },
-                '@media (min-width:1300px)': {
-                    width: '65vw',
-                },
-                '@media (min-width:1500px)': {
-                    width: '70vw',
-                },
-                '@media (min-width:1800px)': {
-                    width: '75vw',
-                },
-                '@media (min-width:2200px)': {
-                    width: '80vw',
-                },
+                overflow: 'hidden',
+                paddingBottom: '15px',
+                maxHeight: '700px',
+
                 ...sx,
             }}
         >
-            {children}
+            <div
+                style={{
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                    display: 'flex',
+                    flexDirection: orientation ?? 'row',
+                    justifyContent: 'center',
+                    padding: '5px',
+                    width: '100%',
+                }}
+            >
+                {children}
+            </div>
         </Box>
     );
 };

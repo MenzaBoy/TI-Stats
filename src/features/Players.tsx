@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { loadPlayers, savePlayer } from '../lib/storage';
 import type { Player } from 'types/models';
+import theme from '../theme/theme';
 
 type PlayersProps = {
     campaignId: string;
@@ -10,7 +11,6 @@ type PlayersProps = {
 const Players: React.FC<PlayersProps> = ({ campaignId }) => {
     const [name, setName] = useState('');
     const [players, setPlayers] = useState<Player[]>([]);
-    // let players: string[] = []
 
     useEffect(() => {
         loadPlayers(campaignId).then(loadedPlayers =>
@@ -39,17 +39,17 @@ const Players: React.FC<PlayersProps> = ({ campaignId }) => {
                 display: 'flex',
                 gap: 4,
                 padding: 2,
-                alignItems: 'flex-start',
-                flexWrap: 'wrap',
+                [theme.breakpoints.down('md')]: {
+                    flexDirection: 'column',
+                },
             }}
         >
-            {/* Left: Form */}
             <Box
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 2,
-                    width: '250px',
+                    width: '100%',
                 }}
             >
                 <TextField
@@ -58,6 +58,11 @@ const Players: React.FC<PlayersProps> = ({ campaignId }) => {
                     value={name}
                     onChange={e => setName(e.target.value)}
                     size="small"
+                    sx={{
+                        minWidth: '200px',
+                        width: '30vw',
+                        maxWidth: '500px',
+                    }}
                 />
                 <Button
                     variant="contained"
@@ -67,15 +72,12 @@ const Players: React.FC<PlayersProps> = ({ campaignId }) => {
                     Add Player
                 </Button>
             </Box>
-
-            {/* Right: Player List */}
             <Paper
                 elevation={3}
                 sx={{
                     padding: 2,
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    minWidth: '200px',
-                    // height: '200px',
+                    minWidth: '150px',
                     overflowY: 'auto',
                 }}
             >
