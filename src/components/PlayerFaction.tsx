@@ -1,7 +1,9 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import type React from 'react';
+import theme from '../theme/theme';
 
 interface PlayerFactionProps {
+    playerOrder: string;
     availablePlayers: string[];
     availableFactions: string[];
     chosenPlayer: string;
@@ -11,6 +13,7 @@ interface PlayerFactionProps {
 }
 
 const PlayerFaction: React.FC<PlayerFactionProps> = ({
+    playerOrder,
     availablePlayers,
     availableFactions,
     chosenPlayer,
@@ -22,6 +25,17 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
         <Box
             sx={{
                 display: 'flex',
+                marginBottom: '10px',
+                width: '80vw',
+                minWidth: '225px',
+                maxWidth: '600px',
+                [theme.breakpoints.down('md')]: {
+                    flexDirection: 'column',
+                    width: '60vw',
+                    gap: '8px',
+                    padding: '3px',
+                    border: '1px dashed #106a9aff',
+                },
             }}
         >
             <Autocomplete
@@ -31,12 +45,12 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
                 renderInput={params => (
                     <TextField
                         {...params}
-                        label="Player"
+                        label={"Player " + playerOrder}
                         variant="outlined"
                         size="small"
                     />
                 )}
-                sx={{ width: 200 }}
+                sx={{ width: '100%' }}
             />
             <Autocomplete
                 options={availableFactions}
@@ -45,25 +59,15 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
                 renderInput={params => (
                     <TextField
                         {...params}
-                        label="Faction"
+                        label={"Faction " + playerOrder}
                         variant="outlined"
                         size="small"
                     />
                 )}
-                sx={{ width: 250 }}
-                // slotProps={{
-                //     listbox: {
-                //         sx: {
-                //             '& li': {
-                //                 display: 'flex',
-                //                 justifyContent: 'center', // centers horizontally
-                //                 textAlign: 'center',       // ensures multiline text is centered
-                //             },
-                //         },
-                //     },
-                // }}
+                sx={{ width: '100%' }}
+
             />
-        </Box>
+        </Box >
     );
 };
 

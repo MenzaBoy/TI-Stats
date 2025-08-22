@@ -17,13 +17,10 @@ function App() {
                 width: '100%',
                 backgroundImage: `url("${getBaseUrl()}/images/ti4bg.jpg")`,
                 backgroundSize: 'cover',
-                // backgroundPosition: 'center',
                 color: 'white',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center', // horizontally center content
-                // justifyContent: 'flex-start', // or "center" for vertical centering
-                // boxSizing: 'border-box',
+                alignItems: 'center',
                 overflow: 'hidden',
             }}
         >

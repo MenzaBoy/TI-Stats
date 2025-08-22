@@ -1,8 +1,7 @@
 import React, { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import Games from '../features/Games';
 import Players from '../features/Players';
-import Stats from '../features/Stats';
-import { Box } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 import CenteredBox from '../components/CenteredBox';
 import StrategyCard from '../components/StrategyCard';
 import TrophyTab from '../components/TrophyTab';
@@ -50,6 +49,8 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
     const [boxContent, setBoxContent] = useState('Games');
     const [currentWinner, setCurrentWinner] = useState<PlayerEntry>();
 
+    const isTrophyEnabled = useMediaQuery("(min-width:1060px)");
+
     const setWinnerCallback = () => {
         loadGames(campaignId).then(loadedGames => {
             const latestGame = loadedGames.sort(
@@ -76,45 +77,46 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
         setWinnerCallback();
     }, [boxContent]); // eslint-disable-line react-hooks/exhaustive-deps
 
+
     return (
-        <div
-            style={{
+        <Box
+            id="responsive-container"
+            sx={{
                 width: '100vw',
-                // height: '100vh',
+                height: '100%',
                 boxSizing: 'border-box',
                 padding: '30px 30px 30px 0px',
+                [theme.breakpoints.down("md")]: {
+                    padding: '30px 15px 15px 0px',
+                },
                 scrollbarWidth: 'thin',
                 display: 'flex',
                 gap: '10px'
-                // justifyContent: 'center',
             }}
-            className="responsive-container"
         >
-            {/* <Container maxWidth="md"> */}
             <Box
+                id='left-menu-bar'
                 sx={{
-                    // marginTop: -5,
-                    // marginRight: 85,
                     marginLeft: '-45px',
                 }}
             >
                 <StrategyCard
                     number={1}
-                    title="Players"
-                    color={theme.palette.custom.leader.main}
-                    onClick={() => setBoxContent('Players')}
-                ></StrategyCard>
-                <StrategyCard
-                    number={2}
                     title="Games"
-                    color={theme.palette.custom.diplomacy.main}
+                    color={theme.palette.custom.leader.main}
                     onClick={() => setBoxContent('Games')}
                 ></StrategyCard>
                 <StrategyCard
+                    number={2}
+                    title="Players"
+                    color={theme.palette.custom.diplomacy.main}
+                    onClick={() => setBoxContent('Players')}
+                ></StrategyCard>
+                <StrategyCard
                     number={3}
-                    title="Stats"
+                    title="Trophy"
                     color={theme.palette.custom.politics.main}
-                    onClick={() => setBoxContent('Stats')}
+                    onClick={() => setBoxContent('Trophy')}
                 ></StrategyCard>
                 <StrategyCard
                     number={4}
@@ -144,39 +146,64 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                 ></StrategyCard> */}
             </Box>
             <Box
+                id="main-centered-box"
                 sx={{
                     width: '100%',
+                    maxHeight: '80vh',
                     display: 'flex',
-                    justifyContent: 'center'
-                    // overflowY: 'auto',
+                    justifyContent: 'center',
                 }}
             >
-                <CenteredBox>
-                    {boxContent === 'Players' && (
-                        <Players campaignId={campaignId} />
-                    )}
-                    {boxContent === 'Games' && (
-                        <Games
-                            campaignId={campaignId}
-                            availableFactions={FACTIONS.map(
-                                faction => faction.factionName,
-                            )}
-                            gameAddedCallback={setWinnerCallback}
-                        />
-                    )}
-                    {boxContent === 'Stats' && <Stats />}
-                </CenteredBox>
-                {/* <TrophyTab
-                    trophyHolderName={currentWinner?.player || ''} // TODO: not an elegant solution
-                    trophyHolderFaction={
-                        FACTIONS.find(
-                            faction =>
-                                faction.factionName === currentWinner?.faction,
-                        ) || ({} as FactionEntry)
-                    }
-                /> */}
+                {boxContent === 'Trophy' &&
+                    <TrophyTab
+                        trophyHolderName={currentWinner?.player || ''} // TODO: not an elegant solution
+                        trophyHolderFaction={
+                            FACTIONS.find(
+                                faction =>
+                                    faction.factionName === currentWinner?.faction,
+                            ) || ({} as FactionEntry)
+                        }
+                    />
+                }
+                {boxContent !== 'Trophy' &&
+
+                    <CenteredBox>
+                        {boxContent === 'Players' && (
+                            <Players campaignId={campaignId} />
+                        )}
+                        {boxContent === 'Games' && (
+                            <Games
+                                campaignId={campaignId}
+                                availableFactions={FACTIONS.map(
+                                    faction => faction.factionName,
+                                )}
+                                gameAddedCallback={setWinnerCallback}
+                            />
+                        )}
+                    </CenteredBox>
+                }
             </Box>
-        </div>
+            {
+                boxContent !== 'Trophy' && isTrophyEnabled &&
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}>
+
+                    <TrophyTab
+                        trophyHolderName={currentWinner?.player || ''} // TODO: not an elegant solution
+                        trophyHolderFaction={
+                            FACTIONS.find(
+                                faction =>
+                                    faction.factionName === currentWinner?.faction,
+                            ) || ({} as FactionEntry)
+                        }
+                    />
+                </Box>
+            }
+        </Box>
     );
 };
 

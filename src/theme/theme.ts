@@ -15,6 +15,43 @@ declare module '@mui/material/styles' {
 }
 
 const theme = createTheme({
+      breakpoints: {
+    values: {
+      xs: 0,
+      sm: 410,
+      md: 600,
+      lg: 900,
+      xl: 1200,
+    },
+  },
+components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          [theme.breakpoints.down("md")]: {
+            "& .MuiInputBase-root": {
+              fontSize: "0.8rem",
+              padding: "4px 8px",
+            },
+            "& .MuiInputLabel-root": {
+              fontSize: "0.8rem",
+            },
+          },
+        }),
+      },
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          [theme.breakpoints.down("md")]: {
+            "& .MuiInputBase-root": {
+              fontSize: "0.8rem",
+            },
+          },
+        }),
+      },
+    },
+  },
     typography: {
         fontFamily:
             '"TI Main Font", "TI Title Font", "Roboto", "Arial", sans-serif',

@@ -112,10 +112,9 @@ const Games: React.FC<GamesProps> = ({
         <Box
             sx={{
                 display: 'flex',
+                flexDirection: 'column',
                 gap: 4,
                 padding: 2,
-                alignItems: 'flex-start',
-                flexWrap: 'wrap',
             }}
         >
             <Box
@@ -123,8 +122,6 @@ const Games: React.FC<GamesProps> = ({
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 1,
-                    maxWidth: '60vw',
-                    minWidth: '225px'
                 }}
             >
                 <TextField
@@ -173,6 +170,7 @@ const Games: React.FC<GamesProps> = ({
                     {Array.from({ length: playerNumber }).map((_, index) => (
                         <PlayerFaction
                             key={index}
+                            playerOrder={(index + 1).toString()}
                             availablePlayers={loadedPlayers
                                 .map(player => player.name)
                                 .filter(
@@ -212,9 +210,7 @@ const Games: React.FC<GamesProps> = ({
                 sx={{
                     padding: 2,
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    // minWidth: '200px',
-                    height: '200px',
-                    overflowY: 'auto',
+                    borderRadius: '5px'
                 }}
             >
                 <Typography variant="h6" gutterBottom>
