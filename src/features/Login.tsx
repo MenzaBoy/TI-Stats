@@ -1,9 +1,16 @@
-import React, { type Dispatch, type SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+    type Dispatch,
+    type SetStateAction,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from 'react';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import { loadCampaignInfo, saveCampaignInfo } from '../lib/storage';
 import { hashPassword } from '../utils';
 import { signInAnonymously } from 'firebase/auth';
-import { auth } from "../lib/firebase"
+import { auth } from '../lib/firebase';
 
 type LoginProps = {
     onLogin: Dispatch<SetStateAction<string | null>>;
@@ -26,14 +33,14 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         if (!passwordEl) return;
 
         const handleKeyUp = (event: KeyboardEvent) => {
-            if (event.key === "Enter" && !isLoginButtonDisabled()) {
+            if (event.key === 'Enter' && !isLoginButtonDisabled()) {
                 loginButtonRef.current?.click();
             }
         };
 
-        passwordEl.addEventListener("keyup", handleKeyUp);
+        passwordEl.addEventListener('keyup', handleKeyUp);
         return () => {
-            passwordEl.removeEventListener("keyup", handleKeyUp);
+            passwordEl.removeEventListener('keyup', handleKeyUp);
         };
     }, [isLoginButtonDisabled]);
 
@@ -66,9 +73,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                     return;
                 }
                 signInAnonymously(auth).then(() => {
-                    localStorage.setItem("campaignId", campaignId);
+                    localStorage.setItem('campaignId', campaignId);
                     onLogin(campaignId);
-                })
+                });
             }
         } finally {
             setLoading(false);

@@ -28,7 +28,10 @@ function App() {
             {campaignId === null ? (
                 <LandingPage setCampaignId={setCampaignId} />
             ) : (
-                <MainPage campaignId={campaignId} setCampaignId={setCampaignId} />
+                <MainPage
+                    campaignId={campaignId}
+                    setCampaignId={setCampaignId}
+                />
             )}
         </main>
     );

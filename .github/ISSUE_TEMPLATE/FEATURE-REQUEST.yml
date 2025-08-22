@@ -1,47 +1,47 @@
-name: "🚀 Feature Request"
+name: '🚀 Feature Request'
 description: Suggest a new feature or improvement for the project
-title: "[Feature]: "
-labels: ["feature", "enhancement"]
+title: '[Feature]: '
+labels: ['feature', 'enhancement']
 assignees: []
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Thanks for suggesting a feature! Please fill out the form below so we can understand your idea clearly.
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for suggesting a feature! Please fill out the form below so we can understand your idea clearly.
 
-  - type: textarea
-    id: description
-    attributes:
-      label: "Feature Description"
-      description: "A clear and concise description of the feature you’d like to see."
-      placeholder: "What problem does this feature solve?"
-    validations:
-      required: true
+    - type: textarea
+      id: description
+      attributes:
+          label: 'Feature Description'
+          description: 'A clear and concise description of the feature you’d like to see.'
+          placeholder: 'What problem does this feature solve?'
+      validations:
+          required: true
 
-  - type: textarea
-    id: motivation
-    attributes:
-      label: "Motivation"
-      description: "Why is this feature important? How would it improve the project?"
-      placeholder: "Explain the benefit of this change..."
-    validations:
-      required: true
+    - type: textarea
+      id: motivation
+      attributes:
+          label: 'Motivation'
+          description: 'Why is this feature important? How would it improve the project?'
+          placeholder: 'Explain the benefit of this change...'
+      validations:
+          required: true
 
-  - type: dropdown
-    id: priority
-    attributes:
-      label: "Priority"
-      description: "How important is this feature?"
-      options:
-        - Low
-        - Medium
-        - High
-    validations:
-      required: true
+    - type: dropdown
+      id: priority
+      attributes:
+          label: 'Priority'
+          description: 'How important is this feature?'
+          options:
+              - Low
+              - Medium
+              - High
+      validations:
+          required: true
 
-  - type: textarea
-    id: context
-    attributes:
-      label: "Additional Context"
-      description: "Add any other context, examples, or screenshots about the feature request here."
+    - type: textarea
+      id: context
+      attributes:
+          label: 'Additional Context'
+          description: 'Add any other context, examples, or screenshots about the feature request here.'

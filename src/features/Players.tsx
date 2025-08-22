@@ -39,9 +39,8 @@ const Players: React.FC<PlayersProps> = ({ campaignId }) => {
                 display: 'flex',
                 gap: 4,
                 padding: 2,
-                [theme.breakpoints.down("md")]: {
-                    flexDirection: 'column'
-
+                [theme.breakpoints.down('md')]: {
+                    flexDirection: 'column',
                 },
             }}
         >
@@ -62,8 +61,7 @@ const Players: React.FC<PlayersProps> = ({ campaignId }) => {
                     sx={{
                         minWidth: '200px',
                         width: '30vw',
-                        maxWidth: '500px'
-
+                        maxWidth: '500px',
                     }}
                 />
                 <Button

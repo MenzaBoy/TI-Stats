@@ -47,10 +47,15 @@ const Games: React.FC<GamesProps> = ({
     };
 
     useEffect(() => {
-        loadGames(campaignId).then(games => setLoadedGames(games.sort(
-            (g1, g2) =>
-                new Date(g1.date).getTime() - new Date(g2.date).getTime(),
-        )));
+        loadGames(campaignId).then(games =>
+            setLoadedGames(
+                games.sort(
+                    (g1, g2) =>
+                        new Date(g1.date).getTime() -
+                        new Date(g2.date).getTime(),
+                ),
+            ),
+        );
         loadPlayers(campaignId).then(players => setLoadedPlayers(players));
     }, [campaignId]);
 
@@ -210,7 +215,7 @@ const Games: React.FC<GamesProps> = ({
                 sx={{
                     padding: 2,
                     backgroundColor: 'rgba(0,0,0,0.1)',
-                    borderRadius: '5px'
+                    borderRadius: '5px',
                 }}
             >
                 <Typography variant="h6" gutterBottom>

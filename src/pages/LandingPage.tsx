@@ -10,17 +10,21 @@ type LandingPageProps = {
 
 const LandingPage: React.FC<LandingPageProps> = ({ setCampaignId }) => {
     return (
-        <CenteredBox orientation='column' sx={{
-            padding: '10px', marginTop: '15px', [theme.breakpoints.down("md")]: {
-                width: '70%'
-
-            },
-        }}>
+        <CenteredBox
+            orientation="column"
+            sx={{
+                padding: '10px',
+                marginTop: '15px',
+                [theme.breakpoints.down('md')]: {
+                    width: '70%',
+                },
+            }}
+        >
             <Typography variant="h4" gutterBottom color="white">
                 {'Welcome to TI4 Statistics!'}
             </Typography>
             <Login onLogin={setCampaignId} />
-        </CenteredBox >
+        </CenteredBox>
     );
 };
 

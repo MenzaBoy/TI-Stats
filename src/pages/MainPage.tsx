@@ -1,4 +1,9 @@
-import React, { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import React, {
+    useEffect,
+    useState,
+    type Dispatch,
+    type SetStateAction,
+} from 'react';
 import Games from '../features/Games';
 import Players from '../features/Players';
 import { Box, useMediaQuery } from '@mui/material';
@@ -49,7 +54,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
     const [boxContent, setBoxContent] = useState('Games');
     const [currentWinner, setCurrentWinner] = useState<PlayerEntry>();
 
-    const isTrophyEnabled = useMediaQuery("(min-width:1060px)");
+    const isTrophyEnabled = useMediaQuery('(min-width:1060px)');
 
     const setWinnerCallback = () => {
         loadGames(campaignId).then(loadedGames => {
@@ -68,15 +73,14 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
     };
 
     const logOut = () => {
-        localStorage.removeItem("campaignId");
+        localStorage.removeItem('campaignId');
         setCampaignId(null);
         signOut(auth);
-    }
+    };
 
     useEffect(() => {
         setWinnerCallback();
     }, [boxContent]); // eslint-disable-line react-hooks/exhaustive-deps
-
 
     return (
         <Box
@@ -86,16 +90,16 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                 height: '100%',
                 boxSizing: 'border-box',
                 padding: '30px 30px 30px 0px',
-                [theme.breakpoints.down("md")]: {
+                [theme.breakpoints.down('md')]: {
                     padding: '30px 15px 15px 0px',
                 },
                 scrollbarWidth: 'thin',
                 display: 'flex',
-                gap: '10px'
+                gap: '10px',
             }}
         >
             <Box
-                id='left-menu-bar'
+                id="left-menu-bar"
                 sx={{
                     marginLeft: '-45px',
                 }}
@@ -154,19 +158,19 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                     justifyContent: 'center',
                 }}
             >
-                {boxContent === 'Trophy' &&
+                {boxContent === 'Trophy' && (
                     <TrophyTab
                         trophyHolderName={currentWinner?.player || ''} // TODO: not an elegant solution
                         trophyHolderFaction={
                             FACTIONS.find(
                                 faction =>
-                                    faction.factionName === currentWinner?.faction,
+                                    faction.factionName ===
+                                    currentWinner?.faction,
                             ) || ({} as FactionEntry)
                         }
                     />
-                }
-                {boxContent !== 'Trophy' &&
-
+                )}
+                {boxContent !== 'Trophy' && (
                     <CenteredBox>
                         {boxContent === 'Players' && (
                             <Players campaignId={campaignId} />
@@ -181,28 +185,28 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                             />
                         )}
                     </CenteredBox>
-                }
+                )}
             </Box>
-            {
-                boxContent !== 'Trophy' && isTrophyEnabled &&
+            {boxContent !== 'Trophy' && isTrophyEnabled && (
                 <Box
                     sx={{
                         width: '100%',
                         display: 'flex',
-                        justifyContent: 'center'
-                    }}>
-
+                        justifyContent: 'center',
+                    }}
+                >
                     <TrophyTab
                         trophyHolderName={currentWinner?.player || ''} // TODO: not an elegant solution
                         trophyHolderFaction={
                             FACTIONS.find(
                                 faction =>
-                                    faction.factionName === currentWinner?.faction,
+                                    faction.factionName ===
+                                    currentWinner?.faction,
                             ) || ({} as FactionEntry)
                         }
                     />
                 </Box>
-            }
+            )}
         </Box>
     );
 };

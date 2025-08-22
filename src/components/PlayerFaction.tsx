@@ -45,7 +45,7 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
                 renderInput={params => (
                     <TextField
                         {...params}
-                        label={"Player " + playerOrder}
+                        label={'Player ' + playerOrder}
                         variant="outlined"
                         size="small"
                     />
@@ -59,15 +59,14 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
                 renderInput={params => (
                     <TextField
                         {...params}
-                        label={"Faction " + playerOrder}
+                        label={'Faction ' + playerOrder}
                         variant="outlined"
                         size="small"
                     />
                 )}
                 sx={{ width: '100%' }}
-
             />
-        </Box >
+        </Box>
     );
 };
 
