@@ -12,7 +12,8 @@
         "preview": "vite preview",
         "format": "npx prettier --write .",
         "deploy": "gh-pages -d dist",
-        "test": "echo 'PASSED with no tests run.'"
+        "test": "echo 'PASSED with no tests run.'",
+        "analyze": "webpack"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",

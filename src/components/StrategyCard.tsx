@@ -46,7 +46,7 @@ const StrategyCard: React.FC<StrategyCardProps> = ({
                 sx={{
                     width: cardWidth - 2,
                     height: 1.23 * cardWidth - 2,
-                    backgroundImage: `url("${getBaseUrl()}/images/strategy-card-bg.png")`,
+                    backgroundImage: `url("${getBaseUrl()}/images/strategy-card-bg.webp")`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     color: 'white',
