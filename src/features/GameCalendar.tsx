@@ -48,10 +48,13 @@ const GameCalendar: React.FC<GameCalendarProps> = ({
     }, [campaignId]);
 
     const refreshEntries = (arg: DatesSetArg) => {
+        const midDate = arg.start
+        midDate.setDate(midDate.getDate() + 7); // If the first day of the month is Sunday,
+        // we need to go 7 days forward to get to the actul month
         loadCalendarEntries(
             campaignId,
             new Date().getFullYear().toString(),
-            (arg.start.getMonth() + 2).toString().padStart(2, '0'),
+            (midDate.getMonth() + 1).toString().padStart(2, '0'),
         ).then(loadedEntries => {
             setEntries(loadedEntries);
         });
@@ -166,6 +169,7 @@ const GameCalendar: React.FC<GameCalendarProps> = ({
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
+                firstDay={1}
                 events={entries}
                 dateClick={handleDateClick}
                 eventClick={handleEventClick}
@@ -173,6 +177,7 @@ const GameCalendar: React.FC<GameCalendarProps> = ({
                 datesSet={refreshEntries}
                 dayCellClassNames={addPastClass}
                 height="auto"
+                fixedWeekCount={false}
             />
             <style>
                 {`

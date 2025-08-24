@@ -52,7 +52,7 @@ type MainPageProps = {
 
 const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
     const theme = useTheme();
-    const [boxContent, setBoxContent] = useState('Games');
+    const [currentTab, setCurrentTab] = useState('Games');
     const [currentWinner, setCurrentWinner] = useState<PlayerEntry>();
 
     const isTrophyEnabled = useMediaQuery('(min-width:1060px)');
@@ -79,9 +79,24 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
         signOut(auth);
     };
 
+    const handleTabChange = (newTab: string) => {
+        setCurrentTab(newTab);
+        const params = new URLSearchParams(window.location.search);
+        params.set('currentTab', newTab);
+        window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+    };
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const tabFromUrl = params.get('currentTab');
+        if (tabFromUrl) {
+            setCurrentTab(tabFromUrl);
+        }
+    }, []);
+
     useEffect(() => {
         setWinnerCallback();
-    }, [boxContent]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [currentTab]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Box
@@ -109,25 +124,25 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                     number={1}
                     title="Games"
                     color={theme.palette.custom.leader.main}
-                    onClick={() => setBoxContent('Games')}
+                    onClick={() => handleTabChange('Games')}
                 ></StrategyCard>
                 <StrategyCard
                     number={2}
                     title="Players"
                     color={theme.palette.custom.diplomacy.main}
-                    onClick={() => setBoxContent('Players')}
+                    onClick={() => handleTabChange('Players')}
                 ></StrategyCard>
                 <StrategyCard
                     number={3}
                     title="Trophy"
                     color={theme.palette.custom.politics.main}
-                    onClick={() => setBoxContent('Trophy')}
+                    onClick={() => handleTabChange('Trophy')}
                 ></StrategyCard>
                 <StrategyCard
                     number={4}
                     title="Calendar"
                     color={theme.palette.custom.construction.main}
-                    onClick={() => setBoxContent('Calendar')}
+                    onClick={() => handleTabChange('Calendar')}
                 ></StrategyCard>
                 <StrategyCard
                     number={5}
@@ -161,7 +176,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                     justifyContent: 'center',
                 }}
             >
-                {boxContent === 'Trophy' && (
+                {currentTab === 'Trophy' && (
                     <TrophyTab
                         trophyHolderName={currentWinner?.player || ''} // TODO: not an elegant solution
                         trophyHolderFaction={
@@ -173,12 +188,12 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                         }
                     />
                 )}
-                {boxContent !== 'Trophy' && (
+                {currentTab !== 'Trophy' && (
                     <CenteredBox>
-                        {boxContent === 'Players' && (
+                        {currentTab === 'Players' && (
                             <Players campaignId={campaignId} />
                         )}
-                        {boxContent === 'Games' && (
+                        {currentTab === 'Games' && (
                             <Games
                                 campaignId={campaignId}
                                 availableFactions={FACTIONS.map(
@@ -187,13 +202,13 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                                 gameAddedCallback={setWinnerCallback}
                             />
                         )}
-                        {boxContent === 'Calendar' && (
+                        {currentTab === 'Calendar' && (
                             <GameCalendar campaignId={campaignId} />
                         )}
                     </CenteredBox>
                 )}
             </Box>
-            {boxContent !== 'Trophy' && isTrophyEnabled && (
+            {currentTab !== 'Trophy' && isTrophyEnabled && (
                 <Box
                     sx={{
                         width: '50%',
