@@ -20,6 +20,7 @@ import {
 } from '../lib/storage';
 import type { CalendarEntry, Player } from 'types/models';
 import type { DatesSetArg, EventContentArg } from '@fullcalendar/core/index.js';
+import { stringToColor } from '../utils';
 
 type GameCalendarProps = {
     campaignId: string;
@@ -50,7 +51,7 @@ const GameCalendar: React.FC<GameCalendarProps> = ({
     const refreshEntries = (arg: DatesSetArg) => {
         const midDate = arg.start
         midDate.setDate(midDate.getDate() + 7); // If the first day of the month is Sunday,
-        // we need to go 7 days forward to get to the actul month
+        // we need to go 7 days forward to get to the actual month
         loadCalendarEntries(
             campaignId,
             new Date().getFullYear().toString(),
@@ -71,16 +72,6 @@ const GameCalendar: React.FC<GameCalendarProps> = ({
             return;
         }
         setOpen(true);
-    };
-
-    const stringToColor = (str: string): string => {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            hash = str.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        // map hash value to 0–360 (hue)
-        const hue = hash % 360;
-        return `hsl(${hue}, 70%, 30%)`; // Saturation 70%, Lightness 50%
     };
 
     const handleAdd = async () => {
