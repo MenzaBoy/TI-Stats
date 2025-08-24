@@ -15,7 +15,7 @@ function App() {
             style={{
                 height: '100%',
                 width: '100%',
-                backgroundImage: `url("${getBaseUrl()}/images/ti4bg.jpg")`,
+                backgroundImage: `url("${getBaseUrl()}/images/ti4bg.webp")`,
                 backgroundSize: 'cover',
                 color: 'white',
                 display: 'flex',

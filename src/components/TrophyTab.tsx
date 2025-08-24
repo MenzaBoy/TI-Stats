@@ -4,13 +4,13 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { Box, Typography } from '@mui/material';
 
-import * as THREE from 'three';
+import { Group } from 'three';
 import { getBaseUrl } from '../utils';
 import type { FactionEntry } from 'types/models';
 
 function TrophyModelGLB() {
     const { scene } = useGLTF(getBaseUrl() + '/models/ti-trophy.glb');
-    const ref = useRef<THREE.Group>(null);
+    const ref = useRef<Group>(null);
     const hasTilted = useRef(false);
 
     useEffect(() => {
@@ -73,7 +73,7 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
         <Box
             textAlign="center"
             sx={{
-                backgroundImage: `url("${getBaseUrl()}/images/tihexes.jpg")`,
+                backgroundImage: `url("${getBaseUrl()}/images/tihexes.webp")`,
                 backgroundPosition: 'center',
                 borderRadius: 5,
                 width: '300px',
