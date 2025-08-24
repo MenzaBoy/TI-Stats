@@ -16,6 +16,7 @@ import { useTheme } from '@mui/material/styles';
 import type { FactionEntry, PlayerEntry } from 'types/models';
 import { signOut } from 'firebase/auth';
 import { auth } from '../lib/firebase';
+import GameCalendar from '../features/GameCalendar';
 
 const FACTIONS: FactionEntry[] = [
     { factionName: 'The Arborec', factionImage: 'arborec.webp' },
@@ -124,16 +125,18 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                 ></StrategyCard>
                 <StrategyCard
                     number={4}
-                    title="Log Out"
+                    title="Calendar"
                     color={theme.palette.custom.construction.main}
-                    onClick={logOut}
-                ></StrategyCard>
-                {/* <StrategyCard
-                    number={5}
-                    title="Trade"
-                    color={theme.palette.custom.trade.main}
+                    onClick={() => setBoxContent('Calendar')}
                 ></StrategyCard>
                 <StrategyCard
+                    number={5}
+                    title="Log Out"
+                    color={theme.palette.custom.trade.main}
+                    onClick={logOut}
+                ></StrategyCard>
+
+                {/* <StrategyCard
                     number={6}
                     title="Warfare"
                     color={theme.palette.custom.warfare.main}
@@ -184,13 +187,16 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                                 gameAddedCallback={setWinnerCallback}
                             />
                         )}
+                        {boxContent === 'Calendar' && (
+                            <GameCalendar campaignId={campaignId} />
+                        )}
                     </CenteredBox>
                 )}
             </Box>
             {boxContent !== 'Trophy' && isTrophyEnabled && (
                 <Box
                     sx={{
-                        width: '100%',
+                        width: '50%',
                         display: 'flex',
                         justifyContent: 'center',
                     }}

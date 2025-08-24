@@ -1,4 +1,4 @@
-import type { Game } from 'types/models';
+import type { CalendarEntry, Game } from 'types/models';
 import hash from 'object-hash';
 
 export const getBaseUrl = () => {
@@ -23,4 +23,8 @@ export async function hashPassword(password: string) {
     return Array.from(new Uint8Array(hashBuffer))
         .map(b => b.toString(16).padStart(2, '0'))
         .join('');
+}
+
+export function hashCalendarEntry(entry: CalendarEntry) {
+    return hash(entry);
 }

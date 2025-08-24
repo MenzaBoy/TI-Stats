@@ -1,8 +1,8 @@
 // src/lib/db.ts
-import type { CampaignInfo, Game, Player } from 'types/models';
+import type { CalendarEntry, CampaignInfo, Game, Player } from 'types/models';
 import { db } from './firebase';
-import { get, ref, set } from 'firebase/database';
-import { getGameId } from '../utils';
+import { get, ref, set, remove } from 'firebase/database';
+import { getGameId, hashCalendarEntry } from '../utils';
 
 export async function savePlayer(campaignId: string, player: Player) {
     await set(
@@ -39,6 +39,47 @@ export async function loadCampaignInfo(
     campaignId: string,
 ): Promise<CampaignInfo | null> {
     return await getDataFromDb(`campaignInfos/${campaignId}`, null);
+}
+
+export async function saveCalendarEntry(
+    campaignId: string,
+    year: string,
+    month: string,
+    entry: CalendarEntry,
+) {
+    await set(
+        ref(
+            db,
+            `campaigns/${campaignId}/calendar/${year}/${month}/${hashCalendarEntry(entry)}`,
+        ),
+        entry,
+    );
+}
+
+export async function deleteCalendarEntry(
+    campaignId: string,
+    year: string,
+    month: string,
+    entry: CalendarEntry,
+) {
+    await remove(
+        ref(
+            db,
+            `campaigns/${campaignId}/calendar/${year}/${month}/${hashCalendarEntry(entry)}`,
+        ),
+    );
+}
+
+export async function loadCalendarEntries(
+    campaignId: string,
+    year: string,
+    month: string,
+): Promise<CalendarEntry[]> {
+    const entries = await getDataFromDb(
+        `campaigns/${campaignId}/calendar/${year}/${month}`,
+        [],
+    );
+    return entries ? Object.values(entries) : [];
 }
 
 async function getDataFromDb(

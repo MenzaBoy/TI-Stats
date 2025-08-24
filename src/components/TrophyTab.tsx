@@ -73,7 +73,7 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
         <Box
             textAlign="center"
             sx={{
-                backgroundImage: `url("${getBaseUrl()}/images/tihexes.webp")`,
+                backgroundImage: `url("${getBaseUrl()}images/tihexes.webp")`,
                 backgroundPosition: 'center',
                 borderRadius: 5,
                 width: '300px',
@@ -94,15 +94,17 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
                     marginBottom: '-200px',
                 }}
             >
-                <Box
-                    sx={{
-                        borderRadius: '5px',
-                        width: '100px',
-                        height: '150px',
-                        backgroundImage: `url("${getBaseUrl()}/images/factions/${trophyHolderFaction.factionImage}")`,
-                        backgroundSize: 'cover',
-                    }}
-                ></Box>
+                {trophyHolderName && (
+                    <Box
+                        sx={{
+                            borderRadius: '5px',
+                            width: '100px',
+                            height: '150px',
+                            backgroundImage: `url("${getBaseUrl()}images/factions/${trophyHolderFaction.factionImage}")`,
+                            backgroundSize: 'cover',
+                        }}
+                    ></Box>
+                )}
             </Box>
             <Suspense fallback={<div>Loading Trophy...</div>}>
                 <RotatingTrophy />
