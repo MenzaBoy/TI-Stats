@@ -33,3 +33,9 @@ export interface CampaignInfo {
     registrationDate: string;
     passwordHash: string;
 }
+
+export interface CalendarEntry {
+    title: string;
+    date: string;
+    color: string;
+}

@@ -59,7 +59,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                         'No campaign found. Do you want to register instead?',
                     );
                     if (shouldRegister) {
-                        saveCampaignInfo({
+                        await saveCampaignInfo({
                             id: trimmedId,
                             registrationDate: new Date().toISOString(),
                             passwordHash: hashedPw,

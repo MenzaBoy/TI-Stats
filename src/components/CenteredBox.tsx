@@ -1,9 +1,10 @@
 import { Box } from '@mui/material';
+import theme from '../theme/theme';
 
 interface CenteredBoxProps {
     orientation?: 'column' | 'row';
     children: React.ReactNode;
-    sx?: object; // optional MUI styling prop
+    sx?: object;
 }
 
 const CenteredBox: React.FC<CenteredBoxProps> = ({
@@ -24,7 +25,9 @@ const CenteredBox: React.FC<CenteredBoxProps> = ({
                 color: 'white',
                 overflow: 'hidden',
                 paddingBottom: '15px',
-                maxHeight: '700px',
+                [theme.breakpoints.down('md')]: {
+                    maxHeight: '700px',
+                },
 
                 ...sx,
             }}
