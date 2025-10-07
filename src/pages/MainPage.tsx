@@ -72,7 +72,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
     };
 
     const logOut = () => {
-        if (window.confirm("Are you sure you want to log out?")) {
+        if (window.confirm('Are you sure you want to log out?')) {
             localStorage.removeItem('campaignId');
             setCampaignId(null);
             signOut(auth);

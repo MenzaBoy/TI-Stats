@@ -24,12 +24,10 @@ function App() {
                 backgroundSize: 'cover',
                 color: 'white',
                 overflow: 'hidden',
-
             }}
         >
             <Banner />
             {campaignId === null ? (
-
                 <LandingPage setCampaignId={setCampaignId} />
             ) : (
                 <MainPage

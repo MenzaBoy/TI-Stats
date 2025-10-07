@@ -17,18 +17,18 @@ import {
     loadCalendarEntries,
     loadPlayers,
     saveCalendarEntry,
-} from '../lib/storage';
-import type { CalendarEntry, Player } from 'types/models';
+} from '@/lib/storage';
+import type { CalendarEntry, Player } from '@/types/models';
 import type { DatesSetArg, EventContentArg } from '@fullcalendar/core/index.js';
-import { stringToColor } from '../utils';
+import { stringToColor } from '@/utils';
 
-type GameCalendarProps = {
+type CalendarTabProps = {
     campaignId: string;
 };
 
-const GameCalendar: React.FC<GameCalendarProps> = ({
+const CalendarTab: React.FC<CalendarTabProps> = ({
     campaignId,
-}: GameCalendarProps) => {
+}: CalendarTabProps) => {
     const [entries, setEntries] = useState<CalendarEntry[]>([]);
     const [open, setOpen] = useState(false);
     const [players, setPlayers] = useState<Player[]>([]);
@@ -49,7 +49,7 @@ const GameCalendar: React.FC<GameCalendarProps> = ({
     }, [campaignId]);
 
     const refreshEntries = (arg: DatesSetArg) => {
-        const midDate = arg.start
+        const midDate = arg.start;
         midDate.setDate(midDate.getDate() + 7); // If the first day of the month is Sunday,
         // we need to go 7 days forward to get to the actual month
         loadCalendarEntries(
@@ -99,6 +99,13 @@ const GameCalendar: React.FC<GameCalendarProps> = ({
     };
 
     const handleEventClick = (info: any) => {
+        if (
+            new Date(info.el.fcSeg.eventRange.range.start) <
+            new Date(new Date().toISOString().slice(0, 10))
+        ) {
+            alert('You cannot alter events for past dates.');
+            return;
+        }
         if (
             window.confirm(
                 `Remove ${info.event.title}'s availability on ${info.event.startStr}?`,
@@ -215,4 +222,4 @@ const GameCalendar: React.FC<GameCalendarProps> = ({
     );
 };
 
-export default GameCalendar;
+export default CalendarTab;

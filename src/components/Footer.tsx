@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 
-const Banner = () => {
+const Footer = () => {
     return (
         <Box
-            id="banner-box"
+            id="footer-box"
             component={motion.div}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -22,14 +22,14 @@ const Banner = () => {
             {/* Optional space background overlay */}
             <Box />
             <Typography
-                variant="h2"
+                variant="h6"
                 sx={{
                     // position: 'relative',
                     // zIndex: 1,
                     whiteSpace: 'nowrap',
                     fontFamily: 'TI Title Font',
                     '@media (max-width:700px)': {
-                        fontSize: 'clamp(0.5rem, 5vw + 0.5rem, 5.7rem);',
+                        fontSize: 'clamp(0.2rem, 2vw + 0.4rem, 5.7rem);',
                     },
                     '@media (max-width:500px)': {
                         backgroundSize: '1500px 100px',
@@ -38,7 +38,7 @@ const Banner = () => {
                         backgroundSize: '1000px 100px',
                     },
                     '@media (max-width:330px)': {
-                        fontSize: '1.5rem',
+                        fontSize: '0.9rem',
                     },
                     background:
                         'radial-gradient(ellipse at 50% 80%, rgb(247,190,23) 20%, rgb(253,242,147) 25%, rgb(238,90,29) 35%)',
@@ -49,10 +49,10 @@ const Banner = () => {
                     WebkitTextFillColor: 'transparent',
                 }}
             >
-                TWILIGHT IMPERIUM STATS
+                FOOTER
             </Typography>
         </Box>
     );
 };
 
-export default Banner;
+export default Footer;

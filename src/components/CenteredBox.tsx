@@ -33,13 +33,13 @@ const CenteredBox: React.FC<CenteredBoxProps> = ({
 
                 [theme.breakpoints.down('md')]: {
                     maxHeight: '700px',
-                    width: '80%'
+                    width: '80%',
                 },
                 ...sx,
             }}
         >
             <div
-                id='centered-box-scrollable'
+                id="centered-box-scrollable"
                 style={{
                     overflowY: 'auto',
                     overflowX: 'hidden',

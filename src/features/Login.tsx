@@ -85,7 +85,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     return (
         <Box
             sx={{
-                minWidth: "238px",
+                minWidth: '238px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -94,7 +94,11 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         >
             <Paper
                 elevation={6}
-                sx={{ padding: 4, maxWidth: "400px", backgroundColor: '#1d1f40' }}
+                sx={{
+                    padding: 4,
+                    maxWidth: '400px',
+                    backgroundColor: '#1d1f40',
+                }}
             >
                 <Typography variant="h5" gutterBottom color="white">
                     TI4 Game Login
