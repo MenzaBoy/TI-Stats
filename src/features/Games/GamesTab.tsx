@@ -236,7 +236,7 @@ const GamesTab: React.FC<GamesProps> = ({
                 }}
             >
                 <ListBox
-                    title={'Games'}
+                    title={openGame ? openGame.date : 'Games'}
                     listContent={loadedGames}
                     emptyContentText={'No games recorded yet.'}
                     itemKey="date"
