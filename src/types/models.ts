@@ -39,3 +39,6 @@ export interface CalendarEntry {
     date: string;
     color: string;
 }
+
+
+export type Option = 'player-faction' | 'winner' | 'players' | 'factions-by-plays' | null;

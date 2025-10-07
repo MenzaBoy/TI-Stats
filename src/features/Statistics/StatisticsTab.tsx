@@ -1,6 +1,9 @@
 import { loadGames } from '@/lib/storage';
-import type { Game, PlayerEntry } from '@/types/models';
+import type { Game, Option, PlayerEntry } from '@/types/models';
+import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { BarChart } from '@mui/x-charts/BarChart';
+import DropDownBox from '@/components/DropDownBox';
 
 type StatisticsTabProps = {
     campaignId: string;
@@ -10,6 +13,7 @@ const StatisticsTab: React.FC<StatisticsTabProps> = ({
     campaignId,
 }: StatisticsTabProps) => {
     const [loadedGames, setLoadedGames] = useState<Game[]>([]);
+    const [openOption, setOpenOption] = useState<Option>(null);
 
     const getFactionsByPlays = (games: Game[]): PlayerEntry[] => {
         if (games.length === 0) return [];
@@ -46,14 +50,31 @@ const StatisticsTab: React.FC<StatisticsTabProps> = ({
         // loadPlayers(campaignId).then(players => setLoadedPlayers(players));
     }, [campaignId]);
 
+    const datamap = getFactionsByPlays(loadedGames).map(e => ({ data: [e.plays] }))
+    console.log(datamap)
     return (
-        <div>
-            <h2>Statistics</h2>
-            {getFactionsByPlays(loadedGames).map((entry, index) => (
-                <p key={index}>
-                    {entry.player}: {entry.plays} plays
-                </p>
-            ))}
+        <div
+            style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 16 }}
+        >
+            <Typography variant="h6" gutterBottom>
+                Statistics
+            </Typography>
+            <DropDownBox
+                title={'Factions by Plays'}
+                isOpen={openOption === 'factions-by-plays'}
+                optionName={'factions-by-plays'}
+                openCloseCallback={setOpenOption}
+            >
+
+                <div style={{ flex: 1 }}>
+
+                    <BarChart
+                        xAxis={[{ data: ["Plays"] }]}
+                        series={getFactionsByPlays(loadedGames).map(e => ({ data: [e.plays], label: e.player }))}
+                        height={400}
+                    />
+                </div>
+            </DropDownBox>
         </div>
     );
 };

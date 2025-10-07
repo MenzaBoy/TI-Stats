@@ -24,6 +24,7 @@
         "@fullcalendar/react": "^6.1.19",
         "@mui/icons-material": "^7.3.4",
         "@mui/material": "^7.1.0",
+        "@mui/x-charts": "^8.13.1",
         "@react-three/drei": "^10.0.8",
         "@react-three/fiber": "^9.1.2",
         "firebase": "^11.9.1",
