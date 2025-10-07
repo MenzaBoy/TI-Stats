@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { getBaseUrl } from '../utils';
+import { getBaseUrl } from '@/utils';
 
 interface StrategyCardProps {
     number: number;
@@ -55,17 +55,12 @@ const StrategyCard: React.FC<StrategyCardProps> = ({
                         'polygon(0% 0%, 90% 0%, 100% 12%, 100% 11%,57% 100%, 0% 100%, 0% 90%, 0% 10%)',
                     display: 'flex',
                     flexDirection: 'column',
-                    // justifyContent: "space-between",
                 }}
             >
                 {/* Header with number and title */}
                 <Box
                     sx={{
-                        // display: 'flex',
                         marginRight: '11px',
-                        // flexDirection: 'row',
-                        // justifyContent: "space-between",
-                        // marginRight: "20px"
                     }}
                 >
                     <Typography

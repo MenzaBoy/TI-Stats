@@ -1,8 +1,8 @@
 // src/lib/db.ts
-import type { CalendarEntry, CampaignInfo, Game, Player } from 'types/models';
+import type { CalendarEntry, CampaignInfo, Game, Player } from '@/types/models';
 import { db } from './firebase';
 import { get, ref, set, remove } from 'firebase/database';
-import { getGameId, hashCalendarEntry } from '../utils';
+import { getGameId, hashCalendarEntry } from '@/utils';
 
 export async function savePlayer(campaignId: string, player: Player) {
     await set(

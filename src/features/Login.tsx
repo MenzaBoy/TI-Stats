@@ -7,10 +7,10 @@ import React, {
     useState,
 } from 'react';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
-import { loadCampaignInfo, saveCampaignInfo } from '../lib/storage';
-import { hashPassword } from '../utils';
+import { loadCampaignInfo, saveCampaignInfo } from '@/lib/storage';
+import { hashPassword } from '@/utils';
 import { signInAnonymously } from 'firebase/auth';
-import { auth } from '../lib/firebase';
+import { auth } from '@/lib/firebase';
 
 type LoginProps = {
     onLogin: Dispatch<SetStateAction<string | null>>;
@@ -85,7 +85,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     return (
         <Box
             sx={{
-                // minHeight: '100vh',
+                minWidth: "238px",
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -94,7 +94,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         >
             <Paper
                 elevation={6}
-                sx={{ padding: 4, width: 300, backgroundColor: '#1d1f40' }}
+                sx={{ padding: 4, maxWidth: "400px", backgroundColor: '#1d1f40' }}
             >
                 <Typography variant="h5" gutterBottom color="white">
                     TI4 Game Login

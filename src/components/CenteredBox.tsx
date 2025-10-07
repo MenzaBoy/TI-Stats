@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import theme from '../theme/theme';
+import theme from '@/theme/theme';
 
 interface CenteredBoxProps {
     orientation?: 'column' | 'row';
@@ -16,23 +16,30 @@ const CenteredBox: React.FC<CenteredBoxProps> = ({
         <Box
             id="centered-box-wrapper"
             sx={{
-                borderRadius: '20px',
                 display: 'flex',
                 flexDirection: 'row',
                 justifyContent: 'center',
-                backgroundColor: 'rgba(37, 77, 110,0.8)',
-                boxShadow: 'rgba(0,0,0,0.5) 0 0 5px ',
+
+                width: '90%',
+                maxWidth: '900px',
+                minWidth: 'min-content',
+
+                backgroundColor: 'rgba(37, 77, 110,0.9)',
+                boxShadow: 'rgba(0,0,0,0.8) 0 0 5px ',
                 color: 'white',
                 overflow: 'hidden',
+                borderRadius: '20px',
                 paddingBottom: '15px',
+
                 [theme.breakpoints.down('md')]: {
                     maxHeight: '700px',
+                    width: '80%'
                 },
-
                 ...sx,
             }}
         >
             <div
+                id='centered-box-scrollable'
                 style={{
                     overflowY: 'auto',
                     overflowX: 'hidden',

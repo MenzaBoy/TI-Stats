@@ -29,12 +29,12 @@ export function hashCalendarEntry(entry: CalendarEntry) {
     return hash(entry);
 }
 
-export function stringToColor (str: string): string {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            hash = str.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        // map hash value to 0–360 (hue)
-        const hue = hash % 360;
-        return `hsl(${hue}, 70%, 30%)`; // Saturation 70%, Lightness 50%
-    };
+export function stringToColor(str: string): string {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    // map hash value to 0–360 (hue)
+    const hue = hash % 360;
+    return `hsl(${hue}, 70%, 30%)`; // Saturation 70%, Lightness 50%
+}

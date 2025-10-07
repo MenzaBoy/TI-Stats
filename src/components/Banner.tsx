@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 const Banner = () => {
     return (
         <Box
+            id='banner-box'
             component={motion.div}
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -15,9 +16,7 @@ const Banner = () => {
                     'radial-gradient(ellipse at center,rgb(24, 24, 97), #000)',
                 borderTop: '4px solid rgb(241,87,38)',
                 borderBottom: '4px solid rgb(245,189,26)',
-                // marginBottom: '40px',
                 boxShadow: '0 0 30px rgba(255, 215, 0, 0.3)',
-                textAlign: 'center',
             }}
         >
             {/* Optional space background overlay */}
