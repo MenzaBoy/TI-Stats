@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import {
-    Autocomplete,
-    Collapse,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Autocomplete, Collapse, TextField, Typography } from '@mui/material';
 import type { Game } from '@/types/models';
 import PlayerFaction from '@/components/PlayerFaction';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 type GameDetailProps = {
     game: Game;
@@ -49,9 +46,7 @@ const GameDetail: React.FC<GameDetailProps> = ({ game }) => {
                     }}
                 >
                     <Typography>{'Players & Factions'}</Typography>
-                    <Typography>
-                        {openOption === 'player-faction' ? '-' : '+'}
-                    </Typography>
+                    {openOption === 'player-faction' ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </div>
                 <Collapse
                     id="player-faction-collapse"
@@ -99,9 +94,7 @@ const GameDetail: React.FC<GameDetailProps> = ({ game }) => {
                     }}
                 >
                     <Typography>{'Winner'}</Typography>
-                    <Typography>
-                        {openOption === 'winner' ? '-' : '+'}
-                    </Typography>
+                    {openOption === 'winner' ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </div>
                 <Collapse id="winner-collapse" in={openOption === 'winner'}>
                     <div

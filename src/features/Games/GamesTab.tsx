@@ -7,13 +7,13 @@ import {
     Divider,
     Paper,
     TextField,
-    Typography,
 } from '@mui/material';
 import { loadGames, loadPlayers, saveGame } from '@/lib/storage';
 import type { Game, Player, PlayerEntry } from '@/types/models';
 import { getGameId } from '@/utils';
 import PlayerFaction from '@/components/PlayerFaction';
 import GameDetail from './Game';
+import ListBox from '@/components/ListBox';
 
 type GamesProps = {
     campaignId: string;
@@ -116,40 +116,7 @@ const GamesTab: React.FC<GamesProps> = ({
         return date && winner && entries.every(e => e.player && e.faction);
     };
 
-    function renderGameContent() {
-        if (openGame) {
-            return <GameDetail game={openGame} />;
-        }
-
-        if (loadedGames.length === 0) {
-            return (
-                <Typography variant="body2" color="text.secondary">
-                    No games added yet.
-                </Typography>
-            );
-        }
-        return loadedGames.map((game, index) => (
-            <div
-                key={index}
-                onClick={() => setOpenGame(game)}
-                style={{ cursor: 'pointer', marginBottom: '2px' }}
-            >
-                <Typography key={index} variant="body1">
-                    • {game.date}
-                </Typography>
-            </div>
-        ));
-    }
-
     return (
-        // <Box
-        //     sx={{
-        //         display: 'flex',
-        //         flexDirection: 'column',
-        //         gap: 4,
-        //         padding: 2,
-        //     }}
-        // >
         <div
             style={{
                 display: 'flex',
@@ -268,15 +235,15 @@ const GamesTab: React.FC<GamesProps> = ({
                     flexDirection: 'column',
                 }}
             >
-                <div
-                    onClick={() => setOpenGame(null)}
-                    style={{ cursor: 'pointer' }}
+                <ListBox
+                    title={'Games'}
+                    listContent={loadedGames}
+                    emptyContentText={'No games recorded yet.'}
+                    itemKey="date"
+                    itemCallback={setOpenGame}
                 >
-                    <Typography variant="h6" gutterBottom>
-                        Games
-                    </Typography>
-                </div>
-                {renderGameContent()}
+                    {openGame && <GameDetail game={openGame} />}
+                </ListBox>
             </Paper>
         </div>
         // </Box >

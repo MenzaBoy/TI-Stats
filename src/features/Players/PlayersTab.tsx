@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Paper, TextField } from '@mui/material';
 import { loadPlayers, savePlayer } from '@/lib/storage';
 import type { Player } from '@/types/models';
 import theme from '@/theme/theme';
+import ListBox from '@/components/ListBox';
 
 type PlayersTabProps = {
     campaignId: string;
@@ -82,20 +83,14 @@ const PlayersTab: React.FC<PlayersTabProps> = ({ campaignId }) => {
                     height: 'min-content',
                 }}
             >
-                <Typography variant="h6" gutterBottom>
-                    Players
-                </Typography>
-                {players.length === 0 ? (
-                    <Typography variant="body2" color="text.secondary">
-                        No players added yet.
-                    </Typography>
-                ) : (
-                    players.map((player, index) => (
-                        <Typography key={index} variant="body1">
-                            • {player.name}
-                        </Typography>
-                    ))
-                )}
+                <ListBox
+                    title={'Players'}
+                    listContent={players}
+                    emptyContentText={'No players added yet.'}
+                    itemKey="name"
+                >
+                    {/* {openGame && <GameDetail game={openGame} />} */}
+                </ListBox>
             </Paper>
         </Box>
     );
