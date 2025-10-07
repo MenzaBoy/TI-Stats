@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Paper, TextField, Typography } from '@mui/material';
-import { loadPlayers, savePlayer } from '../lib/storage';
-import type { Player } from 'types/models';
-import theme from '../theme/theme';
+import { Box, Button, Paper, TextField } from '@mui/material';
+import { loadPlayers, savePlayer } from '@/lib/storage';
+import type { Player } from '@/types/models';
+import theme from '@/theme/theme';
+import ListBox from '@/components/ListBox';
 
-type PlayersProps = {
+type PlayersTabProps = {
     campaignId: string;
 };
 
-const Players: React.FC<PlayersProps> = ({ campaignId }) => {
+const PlayersTab: React.FC<PlayersTabProps> = ({ campaignId }) => {
     const [name, setName] = useState('');
     const [players, setPlayers] = useState<Player[]>([]);
 
@@ -60,7 +61,7 @@ const Players: React.FC<PlayersProps> = ({ campaignId }) => {
                     size="small"
                     sx={{
                         minWidth: '200px',
-                        width: '30vw',
+                        width: '30%',
                         maxWidth: '500px',
                     }}
                 />
@@ -79,25 +80,20 @@ const Players: React.FC<PlayersProps> = ({ campaignId }) => {
                     backgroundColor: 'rgba(0,0,0,0.1)',
                     minWidth: '150px',
                     overflowY: 'auto',
+                    height: 'min-content',
                 }}
             >
-                <Typography variant="h6" gutterBottom>
-                    Players
-                </Typography>
-                {players.length === 0 ? (
-                    <Typography variant="body2" color="text.secondary">
-                        No players added yet.
-                    </Typography>
-                ) : (
-                    players.map((player, index) => (
-                        <Typography key={index} variant="body1">
-                            • {player.name}
-                        </Typography>
-                    ))
-                )}
+                <ListBox
+                    title={'Players'}
+                    listContent={players}
+                    emptyContentText={'No players added yet.'}
+                    itemKey="name"
+                >
+                    {/* {openGame && <GameDetail game={openGame} />} */}
+                </ListBox>
             </Paper>
         </Box>
     );
 };
 
-export default Players;
+export default PlayersTab;

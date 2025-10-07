@@ -1,6 +1,6 @@
 import { Autocomplete, Box, TextField } from '@mui/material';
 import type React from 'react';
-import theme from '../theme/theme';
+import theme from '@/theme/theme';
 
 interface PlayerFactionProps {
     playerOrder: string;
@@ -10,6 +10,7 @@ interface PlayerFactionProps {
     setPlayer: any;
     chosenFaction: string;
     setFaction: any;
+    disabled?: boolean;
 }
 
 const PlayerFaction: React.FC<PlayerFactionProps> = ({
@@ -20,18 +21,15 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
     setPlayer,
     chosenFaction,
     setFaction,
+    disabled = false,
 }) => {
     return (
         <Box
             sx={{
                 display: 'flex',
                 marginBottom: '10px',
-                width: '80vw',
-                minWidth: '225px',
-                maxWidth: '600px',
                 [theme.breakpoints.down('md')]: {
                     flexDirection: 'column',
-                    width: '60vw',
                     gap: '8px',
                     padding: '3px',
                     border: '1px dashed #106a9aff',
@@ -50,6 +48,7 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
                         size="small"
                     />
                 )}
+                disabled={disabled}
                 sx={{ width: '100%' }}
             />
             <Autocomplete
@@ -64,6 +63,7 @@ const PlayerFaction: React.FC<PlayerFactionProps> = ({
                         size="small"
                     />
                 )}
+                disabled={disabled}
                 sx={{ width: '100%' }}
             />
         </Box>

@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import './App.css';
-import MainPage from './pages/MainPage';
-import { getBaseUrl } from './utils';
-import Banner from './components/Banner';
-import LandingPage from './pages/LandingPage';
+import '@/App.css';
+import MainPage from '@/pages/MainPage';
+import { getBaseUrl } from '@/utils';
+import Banner from '@/components/Banner';
+import LandingPage from '@/pages/LandingPage';
+import Footer from '@/components/Footer';
 
 function App() {
     const [campaignId, setCampaignId] = useState<string | null>(() => {
@@ -13,14 +14,15 @@ function App() {
     return (
         <main
             style={{
-                height: '100%',
                 width: '100%',
+                height: '100%',
+
+                display: 'flex',
+                flexDirection: 'column',
+
                 backgroundImage: `url("${getBaseUrl()}images/ti4bg.webp")`,
                 backgroundSize: 'cover',
                 color: 'white',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
                 overflow: 'hidden',
             }}
         >
@@ -33,6 +35,7 @@ function App() {
                     setCampaignId={setCampaignId}
                 />
             )}
+            <Footer />
         </main>
     );
 }

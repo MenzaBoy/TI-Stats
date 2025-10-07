@@ -4,19 +4,17 @@ import React, {
     type Dispatch,
     type SetStateAction,
 } from 'react';
-import Games from '../features/Games';
-import Players from '../features/Players';
+import { GamesTab, PlayersTab, CalendarTab, TrophyTab } from '@/features';
 import { Box, useMediaQuery } from '@mui/material';
-import CenteredBox from '../components/CenteredBox';
-import StrategyCard from '../components/StrategyCard';
-import TrophyTab from '../components/TrophyTab';
+import CenteredBox from '@/components/CenteredBox';
+import StrategyCard from '@/components/StrategyCard';
 
-import { loadGames } from '../lib/storage';
+import { loadGames } from '@/lib/storage';
 import { useTheme } from '@mui/material/styles';
-import type { FactionEntry, PlayerEntry } from 'types/models';
+import type { FactionEntry, Game, PlayerEntry } from '@/types/models';
 import { signOut } from 'firebase/auth';
-import { auth } from '../lib/firebase';
-import GameCalendar from '../features/GameCalendar';
+import { auth } from '@/lib/firebase';
+import StatisticsTab from '@/features/Statistics/StatisticsTab';
 
 const FACTIONS: FactionEntry[] = [
     { factionName: 'The Arborec', factionImage: 'arborec.webp' },
@@ -59,7 +57,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
 
     const setWinnerCallback = () => {
         loadGames(campaignId).then(loadedGames => {
-            const latestGame = loadedGames.sort(
+            const latestGame: Game = loadedGames.sort(
                 (g1, g2) =>
                     new Date(g1.date).getTime() - new Date(g2.date).getTime(),
             )[loadedGames.length - 1];
@@ -74,16 +72,22 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
     };
 
     const logOut = () => {
-        localStorage.removeItem('campaignId');
-        setCampaignId(null);
-        signOut(auth);
+        if (window.confirm('Are you sure you want to log out?')) {
+            localStorage.removeItem('campaignId');
+            setCampaignId(null);
+            signOut(auth);
+        }
     };
 
     const handleTabChange = (newTab: string) => {
         setCurrentTab(newTab);
         const params = new URLSearchParams(window.location.search);
         params.set('currentTab', newTab);
-        window.history.replaceState({}, '', `${window.location.pathname}?${params}`);
+        window.history.replaceState(
+            {},
+            '',
+            `${window.location.pathname}?${params}`,
+        );
     };
 
     useEffect(() => {
@@ -100,10 +104,11 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
 
     return (
         <Box
-            id="responsive-container"
+            id="main-content-box"
             sx={{
-                width: '100vw',
-                height: '100%',
+                width: '100%',
+                overflow: 'hidden',
+                flex: 1,
                 boxSizing: 'border-box',
                 padding: '30px 30px 30px 0px',
                 [theme.breakpoints.down('md')]: {
@@ -146,17 +151,17 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                 ></StrategyCard>
                 <StrategyCard
                     number={5}
-                    title="Log Out"
+                    title="Statistics"
                     color={theme.palette.custom.trade.main}
-                    onClick={logOut}
-                ></StrategyCard>
-
-                {/* <StrategyCard
-                    number={6}
-                    title="Warfare"
-                    color={theme.palette.custom.warfare.main}
+                    onClick={() => handleTabChange('Statistics')}
                 ></StrategyCard>
                 <StrategyCard
+                    number={6}
+                    title="Log Out"
+                    color={theme.palette.custom.warfare.main}
+                    onClick={logOut}
+                ></StrategyCard>
+                {/*<StrategyCard
                     number={7}
                     title="Technology"
                     color={theme.palette.custom.technology.main}
@@ -171,7 +176,7 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                 id="main-centered-box"
                 sx={{
                     width: '100%',
-                    maxHeight: '80vh',
+                    // height: 'min-content',
                     display: 'flex',
                     justifyContent: 'center',
                 }}
@@ -191,10 +196,10 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                 {currentTab !== 'Trophy' && (
                     <CenteredBox>
                         {currentTab === 'Players' && (
-                            <Players campaignId={campaignId} />
+                            <PlayersTab campaignId={campaignId} />
                         )}
                         {currentTab === 'Games' && (
-                            <Games
+                            <GamesTab
                                 campaignId={campaignId}
                                 availableFactions={FACTIONS.map(
                                     faction => faction.factionName,
@@ -203,7 +208,10 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                             />
                         )}
                         {currentTab === 'Calendar' && (
-                            <GameCalendar campaignId={campaignId} />
+                            <CalendarTab campaignId={campaignId} />
+                        )}
+                        {currentTab === 'Statistics' && (
+                            <StatisticsTab campaignId={campaignId} />
                         )}
                     </CenteredBox>
                 )}
@@ -213,7 +221,10 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                     sx={{
                         width: '50%',
                         display: 'flex',
+                        alignItems: 'center',
                         justifyContent: 'center',
+                        flexDirection: 'column',
+                        touchAction: 'auto',
                     }}
                 >
                     <TrophyTab
