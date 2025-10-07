@@ -79,7 +79,7 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
                 touchAction: 'auto',
                 width: '300px',
                 maxHeight: 'min-content',
-                // maxHeight: '100%',
+                zIndex: 1000,
             }}
         >
             <div
@@ -87,8 +87,8 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
                     overflowY: 'auto',
                     overflowX: 'hidden',
                     maxHeight: '100%',
-                    // height: '50%',
                     touchAction: 'auto',
+                    zIndex: 1000,
                 }}
             >
                 <Box
@@ -128,7 +128,7 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
                     <Suspense fallback={<div>Loading Trophy...</div>}>
                         <RotatingTrophy />
                     </Suspense>
-                    <Box textAlign="center" mb={8} sx={{ marginTop: '-50px' }}>
+                    <Box textAlign="center" mb={8} sx={{ marginTop: '-70px' }}>
                         <Typography variant="h6" sx={{ color: '#C5CAE9' }}>
                             Current trophy holder:
                         </Typography>

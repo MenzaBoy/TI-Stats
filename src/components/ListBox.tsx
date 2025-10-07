@@ -62,10 +62,7 @@ const ListBox: React.FC<ListBoxProps> = ({
                         {title}
                     </Typography>
                 </div>
-                {
-                    children &&
-                    <VideogameAssetIcon />
-                }
+                {children && <VideogameAssetIcon />}
             </div>
             {listContent.length === 0 && (
                 <Typography variant="body1" gutterBottom>
@@ -79,7 +76,10 @@ const ListBox: React.FC<ListBoxProps> = ({
                         onClick={() =>
                             itemCallback ? itemCallback(item) : null
                         }
-                        style={{ cursor: itemCallback ? 'pointer' : 'default', marginBottom: '2px' }}
+                        style={{
+                            cursor: itemCallback ? 'pointer' : 'default',
+                            marginBottom: '2px',
+                        }}
                     >
                         <Typography key={index} variant="body1">
                             • {itemKey ? item[itemKey] : item}

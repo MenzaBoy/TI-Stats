@@ -4,6 +4,7 @@ import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import DropDownBox from '@/components/DropDownBox';
+import { getFactionColor } from '@/utils';
 
 type StatisticsTabProps = {
     campaignId: string;
@@ -17,7 +18,7 @@ const StatisticsTab: React.FC<StatisticsTabProps> = ({
 
     const getFactionsByPlays = (games: Game[]): PlayerEntry[] => {
         if (games.length === 0) return [];
-        console.log(games);
+
         const factionCount: { [key: string]: number } = {};
         games.forEach(game => {
             game.playedFactions.forEach(entry => {
@@ -30,9 +31,9 @@ const StatisticsTab: React.FC<StatisticsTabProps> = ({
         });
         return Object.entries(factionCount)
             .map(([faction, count]) => ({
-                player: faction,
-                faction: '',
+                faction: faction,
                 plays: count,
+                player: '',
             }))
             .sort((a, b) => b.plays! - a.plays!);
     };
@@ -50,27 +51,32 @@ const StatisticsTab: React.FC<StatisticsTabProps> = ({
         // loadPlayers(campaignId).then(players => setLoadedPlayers(players));
     }, [campaignId]);
 
-    const datamap = getFactionsByPlays(loadedGames).map(e => ({ data: [e.plays] }))
-    console.log(datamap)
     return (
         <div
-            style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 16 }}
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 16,
+                padding: 16,
+            }}
         >
             <Typography variant="h6" gutterBottom>
                 Statistics
             </Typography>
             <DropDownBox
-                title={'Factions by Plays'}
+                title={'Faction Playtimes'}
                 isOpen={openOption === 'factions-by-plays'}
                 optionName={'factions-by-plays'}
                 openCloseCallback={setOpenOption}
             >
-
                 <div style={{ flex: 1 }}>
-
                     <BarChart
-                        xAxis={[{ data: ["Plays"] }]}
-                        series={getFactionsByPlays(loadedGames).map(e => ({ data: [e.plays], label: e.player }))}
+                        xAxis={[{ data: ['Factions'] }]}
+                        series={getFactionsByPlays(loadedGames).map(e => ({
+                            data: [e.plays],
+                            label: e.faction,
+                            color: getFactionColor(e.faction),
+                        }))}
                         height={400}
                     />
                 </div>

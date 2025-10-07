@@ -4,7 +4,6 @@ import type { Game, Option } from '@/types/models';
 import DropDownBox from '@/components/DropDownBox';
 import PlayerFaction from '@/components/PlayerFaction';
 
-
 type GameDetailProps = {
     game: Game;
 };
@@ -32,9 +31,9 @@ const GameDetail: React.FC<GameDetailProps> = ({ game }) => {
                         availablePlayers={[entry.player]}
                         availableFactions={[entry.faction]}
                         chosenPlayer={entry.player}
-                        setPlayer={() => { }}
+                        setPlayer={() => {}}
                         chosenFaction={entry.faction}
-                        setFaction={() => { }}
+                        setFaction={() => {}}
                         disabled={true}
                     />
                 ))}
@@ -45,20 +44,22 @@ const GameDetail: React.FC<GameDetailProps> = ({ game }) => {
                 optionName={'winner'}
                 openCloseCallback={setOpenOption}
             >
-                {<Autocomplete
-                    options={[]}
-                    value={game.winnersName}
-                    renderInput={params => (
-                        <TextField
-                            {...params}
-                            label={'Winner'}
-                            variant="outlined"
-                            size="small"
-                        />
-                    )}
-                    disabled={true}
-                    sx={{ width: '100%' }}
-                />}
+                {
+                    <Autocomplete
+                        options={[]}
+                        value={game.winnersName}
+                        renderInput={params => (
+                            <TextField
+                                {...params}
+                                label={'Winner'}
+                                variant="outlined"
+                                size="small"
+                            />
+                        )}
+                        disabled={true}
+                        sx={{ width: '100%' }}
+                    />
+                }
             </DropDownBox>
         </div>
     );

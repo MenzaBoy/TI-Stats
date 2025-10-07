@@ -1,8 +1,8 @@
-import { Collapse, Typography } from "@mui/material";
-import type React from "react";
+import { Collapse, Typography } from '@mui/material';
+import type React from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import type { Option } from "@/types/models";
+import type { Option } from '@/types/models';
 
 type DropDownBoxProps = {
     title: string;
@@ -10,26 +10,19 @@ type DropDownBoxProps = {
     optionName: Option;
     openCloseCallback: React.Dispatch<React.SetStateAction<Option>>;
     children?: React.ReactNode;
-}
+};
 
-const DropDownBox: React.FC<DropDownBoxProps> = (
-    { title,
-        isOpen,
-        optionName,
-        openCloseCallback,
-        children
-    }: DropDownBoxProps
-) => {
+const DropDownBox: React.FC<DropDownBoxProps> = ({
+    title,
+    isOpen,
+    optionName,
+    openCloseCallback,
+    children,
+}: DropDownBoxProps) => {
     return (
         <div>
             <div
-                onClick={() =>
-                    openCloseCallback(
-                        isOpen
-                            ? null
-                            : optionName,
-                    )
-                }
+                onClick={() => openCloseCallback(isOpen ? null : optionName)}
                 style={{
                     borderRadius: '8px',
                     cursor: 'pointer',
@@ -45,10 +38,7 @@ const DropDownBox: React.FC<DropDownBoxProps> = (
                 <Typography>{title}</Typography>
                 {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </div>
-            <Collapse
-                id="player-faction-collapse"
-                in={isOpen}
-            >
+            <Collapse id="player-faction-collapse" in={isOpen}>
                 <div
                     style={{
                         display: 'flex',
@@ -60,7 +50,8 @@ const DropDownBox: React.FC<DropDownBoxProps> = (
                     {children}
                 </div>
             </Collapse>
-        </div>);
-}
+        </div>
+    );
+};
 
 export default DropDownBox;

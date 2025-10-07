@@ -21,7 +21,7 @@ const CenteredBox: React.FC<CenteredBoxProps> = ({
                 justifyContent: 'center',
 
                 width: '90%',
-                maxWidth: '900px',
+                maxWidth: '1200px',
                 minWidth: 'min-content',
 
                 backgroundColor: 'rgba(37, 77, 110,0.9)',
