@@ -27,4 +27,4 @@ jobs:
               run: npm test
 
             - name: Validate build
-              run: task build
+              run: npm run build
