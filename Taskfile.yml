@@ -35,3 +35,7 @@ tasks:
         desc: Run all pre-commit checks
         cmds:
             - task: lint-fix
+
+    build:
+        cmds:
+            - npm run build

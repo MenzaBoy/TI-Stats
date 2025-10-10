@@ -81,11 +81,7 @@ const Banner: React.FC<BannerProps> = ({
                 >
                     <Menu />
                 </IconButton>
-                <Drawer
-                    open={open}
-                    onClose={toggleDrawer(false)}
-                    // slotProps={{ paper: { sx: { background: 'rgba(200, 255, 255)' } } }}
-                >
+                <Drawer open={open} onClose={toggleDrawer(false)}>
                     <Box
                         sx={{ width: 250 }}
                         role="presentation"
