@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '@/App.css';
 import MainPage from '@/pages/MainPage';
 import { getBaseUrl } from '@/utils';
@@ -10,6 +10,31 @@ function App() {
     const [campaignId, setCampaignId] = useState<string | null>(() => {
         return localStorage.getItem('campaignId');
     });
+    const [open, setOpen] = useState(false);
+    const [currentTab, setCurrentTab] = useState('Games');
+
+    const toggleDrawer = (newOpen: boolean) => () => {
+        setOpen(newOpen);
+    };
+
+    const handleTabChange = (newTab: string) => {
+        setCurrentTab(newTab);
+        const params = new URLSearchParams(window.location.search);
+        params.set('currentTab', newTab);
+        window.history.replaceState(
+            {},
+            '',
+            `${window.location.pathname}?${params}`,
+        );
+    };
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const tabFromUrl = params.get('currentTab');
+        if (tabFromUrl) {
+            setCurrentTab(tabFromUrl);
+        }
+    }, []);
 
     return (
         <main
@@ -26,14 +51,16 @@ function App() {
                 overflow: 'hidden',
             }}
         >
-            <Banner />
+            <Banner
+                open={open}
+                toggleDrawer={toggleDrawer}
+                openTab={handleTabChange}
+                setCampaignId={setCampaignId}
+            />
             {campaignId === null ? (
                 <LandingPage setCampaignId={setCampaignId} />
             ) : (
-                <MainPage
-                    campaignId={campaignId}
-                    setCampaignId={setCampaignId}
-                />
+                <MainPage currentTab={currentTab} campaignId={campaignId} />
             )}
             <Footer />
         </main>

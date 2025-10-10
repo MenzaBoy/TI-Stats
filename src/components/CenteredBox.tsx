@@ -20,7 +20,7 @@ const CenteredBox: React.FC<CenteredBoxProps> = ({
                 flexDirection: 'row',
                 justifyContent: 'center',
 
-                width: '90%',
+                width: '100%',
                 maxWidth: '1200px',
                 minWidth: 'min-content',
 
@@ -33,7 +33,6 @@ const CenteredBox: React.FC<CenteredBoxProps> = ({
 
                 [theme.breakpoints.down('md')]: {
                     maxHeight: '700px',
-                    width: '80%',
                 },
                 ...sx,
             }}
