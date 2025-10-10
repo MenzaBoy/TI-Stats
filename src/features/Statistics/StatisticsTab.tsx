@@ -1,5 +1,5 @@
 import { loadGames } from '@/lib/storage';
-import type { Game, Option, PlayerEntry } from '@/types/models';
+import type { Game, Option } from '@/types/models';
 import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
@@ -16,7 +16,7 @@ const StatisticsTab: React.FC<StatisticsTabProps> = ({
     const [loadedGames, setLoadedGames] = useState<Game[]>([]);
     const [openOption, setOpenOption] = useState<Option>(null);
 
-    const getFactionsByPlays = (games: Game[]): PlayerEntry[] => {
+    const getFactionsByPlays = (games: Game[]): any[] => {
         if (games.length === 0) return [];
 
         const factionCount: { [key: string]: number } = {};
@@ -71,6 +71,12 @@ const StatisticsTab: React.FC<StatisticsTabProps> = ({
             >
                 <div style={{ flex: 1 }}>
                     <BarChart
+                        slotProps={{
+                            legend: {
+                                sx: { justifyContent: 'center' },
+                                position: { vertical: 'bottom' },
+                            },
+                        }}
                         xAxis={[{ data: ['Factions'] }]}
                         series={getFactionsByPlays(loadedGames).map(e => ({
                             data: [e.plays],
