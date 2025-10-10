@@ -27,6 +27,7 @@ tasks:
     deploy-gh-pages:
         desc: Build and deploy to GitHub Pages
         cmds:
+            - task: pre-commit
             - npm run build-unsafe
             - npm run deploy
 
