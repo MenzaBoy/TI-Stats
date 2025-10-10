@@ -1,19 +1,10 @@
-import React, {
-    useEffect,
-    useState,
-    type Dispatch,
-    type SetStateAction,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import { GamesTab, PlayersTab, CalendarTab, TrophyTab } from '@/features';
 import { Box, useMediaQuery } from '@mui/material';
 import CenteredBox from '@/components/CenteredBox';
-import StrategyCard from '@/components/StrategyCard';
 
 import { loadGames } from '@/lib/storage';
-import { useTheme } from '@mui/material/styles';
 import type { FactionEntry, Game, PlayerEntry } from '@/types/models';
-import { signOut } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
 import StatisticsTab from '@/features/Statistics/StatisticsTab';
 
 const FACTIONS: FactionEntry[] = [
@@ -45,12 +36,10 @@ const FACTIONS: FactionEntry[] = [
 
 type MainPageProps = {
     campaignId: string;
-    setCampaignId: Dispatch<SetStateAction<string | null>>;
+    currentTab: string;
 };
 
-const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
-    const theme = useTheme();
-    const [currentTab, setCurrentTab] = useState('Games');
+const MainPage: React.FC<MainPageProps> = ({ campaignId, currentTab }) => {
     const [currentWinner, setCurrentWinner] = useState<PlayerEntry>();
 
     const isTrophyEnabled = useMediaQuery('(min-width:1060px)');
@@ -71,33 +60,6 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
         });
     };
 
-    const logOut = () => {
-        if (window.confirm('Are you sure you want to log out?')) {
-            localStorage.removeItem('campaignId');
-            setCampaignId(null);
-            signOut(auth);
-        }
-    };
-
-    const handleTabChange = (newTab: string) => {
-        setCurrentTab(newTab);
-        const params = new URLSearchParams(window.location.search);
-        params.set('currentTab', newTab);
-        window.history.replaceState(
-            {},
-            '',
-            `${window.location.pathname}?${params}`,
-        );
-    };
-
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const tabFromUrl = params.get('currentTab');
-        if (tabFromUrl) {
-            setCurrentTab(tabFromUrl);
-        }
-    }, []);
-
     useEffect(() => {
         setWinnerCallback();
     }, [currentTab]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -110,68 +72,12 @@ const MainPage: React.FC<MainPageProps> = ({ campaignId, setCampaignId }) => {
                 overflow: 'hidden',
                 flex: 1,
                 boxSizing: 'border-box',
-                padding: '30px 30px 30px 0px',
-                [theme.breakpoints.down('md')]: {
-                    padding: '30px 15px 15px 0px',
-                },
+                padding: '30px 15px 20px 15px',
                 scrollbarWidth: 'thin',
                 display: 'flex',
                 gap: '10px',
             }}
         >
-            <Box
-                id="left-menu-bar"
-                sx={{
-                    marginLeft: '-45px',
-                }}
-            >
-                <StrategyCard
-                    number={1}
-                    title="Games"
-                    color={theme.palette.custom.leader.main}
-                    onClick={() => handleTabChange('Games')}
-                ></StrategyCard>
-                <StrategyCard
-                    number={2}
-                    title="Players"
-                    color={theme.palette.custom.diplomacy.main}
-                    onClick={() => handleTabChange('Players')}
-                ></StrategyCard>
-                <StrategyCard
-                    number={3}
-                    title="Trophy"
-                    color={theme.palette.custom.politics.main}
-                    onClick={() => handleTabChange('Trophy')}
-                ></StrategyCard>
-                <StrategyCard
-                    number={4}
-                    title="Calendar"
-                    color={theme.palette.custom.construction.main}
-                    onClick={() => handleTabChange('Calendar')}
-                ></StrategyCard>
-                <StrategyCard
-                    number={5}
-                    title="Statistics"
-                    color={theme.palette.custom.trade.main}
-                    onClick={() => handleTabChange('Statistics')}
-                ></StrategyCard>
-                <StrategyCard
-                    number={6}
-                    title="Log Out"
-                    color={theme.palette.custom.warfare.main}
-                    onClick={logOut}
-                ></StrategyCard>
-                {/*<StrategyCard
-                    number={7}
-                    title="Technology"
-                    color={theme.palette.custom.technology.main}
-                ></StrategyCard>
-                <StrategyCard
-                    number={8}
-                    title="Empire"
-                    color={theme.palette.custom.empire.main}
-                ></StrategyCard> */}
-            </Box>
             <Box
                 id="main-centered-box"
                 sx={{

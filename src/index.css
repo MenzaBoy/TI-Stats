@@ -74,3 +74,14 @@ button:focus-visible {
 .move-right:hover {
     transform: translateX(10px); /* moves the element 10px to the right */
 }
+
+.fc-toolbar-chunk {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.fc-button-group {
+    margin-left: 0 !important;
+}

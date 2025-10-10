@@ -39,26 +39,24 @@ function TrophyModelGLB() {
 
 const RotatingTrophy = () => {
     return (
-        <div style={{ touchAction: 'auto' }}>
-            <Canvas style={{ height: '400px', touchAction: 'auto' }}>
-                {/* Fixed lights in the scene */}
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[1, 1, 1]} intensity={10} />
-                <directionalLight position={[1, 0, 0]} intensity={10} />
-                <directionalLight position={[0, 0, 1]} intensity={10} />
-                <directionalLight position={[1, 0, 0]} intensity={10} />
+        <Canvas style={{ height: '400px', pointerEvents: 'none' }}>
+            {/* Fixed lights in the scene */}
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[1, 1, 1]} intensity={10} />
+            <directionalLight position={[1, 0, 0]} intensity={10} />
+            <directionalLight position={[0, 0, 1]} intensity={10} />
+            <directionalLight position={[1, 0, 0]} intensity={10} />
 
-                <Suspense fallback={null}>
-                    <TrophyModelGLB />
-                </Suspense>
-                {/* Camera controls */}
-                <OrbitControls
-                    enableZoom={false}
-                    enableRotate={false}
-                    enablePan={false}
-                />
-            </Canvas>
-        </div>
+            <Suspense fallback={null}>
+                <TrophyModelGLB />
+            </Suspense>
+            {/* Camera controls */}
+            <OrbitControls
+                enableZoom={false}
+                enableRotate={false}
+                enablePan={false}
+            />
+        </Canvas>
     );
 };
 
@@ -87,7 +85,6 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
                     overflowY: 'auto',
                     overflowX: 'hidden',
                     maxHeight: '100%',
-                    touchAction: 'auto',
                     zIndex: 1000,
                 }}
             >
@@ -99,7 +96,6 @@ const TrophyTab: React.FC<TrophyTabProps> = ({
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        touchAction: 'auto',
                     }}
                 >
                     <Box

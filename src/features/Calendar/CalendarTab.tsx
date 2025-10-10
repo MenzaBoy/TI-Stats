@@ -162,7 +162,7 @@ const CalendarTab: React.FC<CalendarTabProps> = ({
 
     return (
         <div style={{ margin: '0 auto', padding: '0px 20px 0px 20px' }}>
-            <h2 className="text-xl font-bold mb-4">Boardgame Availability</h2>
+            <h2 className="text-xl font-bold mb-4">{'Game Calendar'}</h2>
 
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}

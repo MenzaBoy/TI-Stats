@@ -1,0 +1,41 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+    APP_NAME: TIStats
+
+tasks:
+    default:
+        cmds:
+            - echo "{{.APP_NAME}}"
+        silent: true
+
+    format:
+        cmds:
+            - npm run format
+
+    lint:
+        cmds:
+            - npm run lint
+
+    lint-fix:
+        cmds:
+            - task: format
+            - npm run lint:fix
+
+    deploy-gh-pages:
+        desc: Build and deploy to GitHub Pages
+        cmds:
+            - task: pre-commit
+            - npm run build-unsafe
+            - npm run deploy
+
+    pre-commit:
+        desc: Run all pre-commit checks
+        cmds:
+            - task: lint-fix
+
+    build:
+        cmds:
+            - npm run build

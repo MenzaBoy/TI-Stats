@@ -28,7 +28,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ setCampaignId }) => {
                 orientation="column"
                 sx={{
                     padding: '10px',
-                    marginTop: '15px',
+                    width: '60%',
                     [theme.breakpoints.down('md')]: {
                         width: '70%',
                     },
